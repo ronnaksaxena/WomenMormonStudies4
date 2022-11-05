@@ -6,7 +6,7 @@ module.exports = function(app) {
     app.use(
         '/api',
         createProxyMiddleware({
-    target: 'http://localhost:3001/api/Experts',
+    target: 'https://womenmormonstudies-server.herokuapp.com/api/Experts',
     changeOrigin: true,
     })
 );
