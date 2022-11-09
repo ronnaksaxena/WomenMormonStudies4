@@ -55,7 +55,7 @@ class Card extends React.Component {
     <Box>
     <Grid item xs={100}>
     <Item>
-    <button onClick={() => this.handleClick()}>Name: {this.person.first_name} {this.person.last_name} Email: {this.person.email}</button>
+    <button onClick={() => this.handleClick()}>{this.person.first_name} {this.person.last_name}</button>
     </Item>
     </Grid>
     </Box>
