@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 .dropdown-search {
   border: solid 1px black;
   display: inline-block;
@@ -21,7 +26,6 @@ code {
   width: 180px;
   font-size: 13.3333px;
 }
-
 
 .dropdown-input {
   width: 180px;

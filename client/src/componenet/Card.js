@@ -68,6 +68,10 @@ class Card extends React.Component {
       myWindow.document.write("<br>Categoties of Difference: " + this.person.categories_of_difference);
     }
 
+    if (this.person.categories_of_difference != "") {
+      myWindow.document.write("<br>Geographic Areas: " + this.person.geographic_areas);
+    }
+
     if (this.person.discipline != "") {
     myWindow.document.write("<br>Discipline: " + this.person.discipline + '<br>');
     }
