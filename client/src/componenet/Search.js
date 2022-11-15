@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import Scroll from './Scroll';
 import SearchList from './SearchList';
-import { useEffect, useRef} from "react"
+import { useEffect, useRef} from "react";
 
 function Search({ details }) {
 
   const [searchNameField, setNameSearchField] = useState("");
   const [searchGeoField, setGeoSearchField] = useState("");
   const [searchDiscField, setDiscSearchField] = useState("");
-
 
 
   const filteredNamePersons = details.filter(

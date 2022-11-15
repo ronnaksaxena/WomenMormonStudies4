@@ -10,6 +10,7 @@ import Search from "./componenet/Search.js";
 import Home from "./pages/Home";
 import Register from "./pages/Register.js";
 import Vision from "./pages/Vision.js";
+import Admin from "./pages/Admin.js";
 
 
 function App() {
@@ -74,6 +75,8 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
+            <Route exact path='/admin/newell/' element={<Admin details = {backend}/>}/>
+
     
           </Routes>
         </Fragment>
