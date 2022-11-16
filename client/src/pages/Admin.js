@@ -5,11 +5,14 @@ import { Button } from '@mui/material';
 
 
 
-export default function Admin({details}){
+export default function Admin({details, detailsOfUnconfirmed}){
 
     for (let i=0;i<details.length;i++){
         details[i]["id"]= i
     }
+    for (let i=0;i<detailsOfUnconfirmed.length;i++){
+      detailsOfUnconfirmed[i]["id"]= i
+  }
     const onButtonClick = (event, row)=>{
       console.log(row)
     }
@@ -146,7 +149,7 @@ export default function Admin({details}){
       ):
       (
             <DataGrid 
-            rows={rows}
+            rows={detailsOfUnconfirmed}
             columns={columns2}
             rowsPerPageOptions={[5,10,25,50]}
             checkboxSelection
