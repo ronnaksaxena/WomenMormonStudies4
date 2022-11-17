@@ -60,7 +60,7 @@ function App() {
 
   useEffect (() => {
     // Fetches the data as an array of bytes and converts to strea
-    fetch("http://localhost:3001/api/UnconfirmedExperts").then((response) => {
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts").then((response) => {
       const body = response.body
       const reader = body.getReader();
       
