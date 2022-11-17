@@ -8,11 +8,14 @@ export default function Admin({details, detailsOfUnconfirmed}){
 
 
     for (let i=0;i<details.length;i++){
-        details[i]["id"]= i
+        details[i]["id"]= i+1
     }
     for (let i=0;i<detailsOfUnconfirmed.length;i++){
-      detailsOfUnconfirmed[i]["id"]= i
+      detailsOfUnconfirmed[i]["id"]= i+1
   }
+
+    // Botton to remove experts 
+    // need delete request
 
 
   const onButtonClickDeleteExpert = (event, userObject)=>{
@@ -22,27 +25,29 @@ export default function Admin({details, detailsOfUnconfirmed}){
     console.log(userObject._id)
     fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + userObject._id, requestOptions)
     .then((response)=> {
+
       return response.json();
     }).then((result) => {
       console.log(result);
     })
   }
 
-    
-
     const moveAndDelete = (event, userObject)=>{
       onButtonClickUnconfirmedAdd(event, userObject);
       onButtonClickUnconfirmedDelete(event, userObject);
     }
-
+    // Botton to add unconfirmed experts -> experts 
+    // need post request
     // used to remove users from db in Experts
    
 
     const onButtonClickUnconfirmedAdd = (event, userObject)=>{
-      console.log(userObject)
+      var deletedID = JSON.parse(JSON.stringify(userObject))
+      delete deletedID._id
+
       const requestOptions = { 
         method:'POST',
-        body: JSON.stringify(userObject),
+        body: JSON.stringify(deletedID),
         headers: {
           'Content-Type': 'application/json'
       },
