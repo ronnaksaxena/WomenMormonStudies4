@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid} from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 
 
 
 export default function Admin({details, detailsOfUnconfirmed}){
+
 
     for (let i=0;i<details.length;i++){
         details[i]["id"]= i
@@ -13,13 +14,31 @@ export default function Admin({details, detailsOfUnconfirmed}){
     for (let i=0;i<detailsOfUnconfirmed.length;i++){
       detailsOfUnconfirmed[i]["id"]= i
   }
-    const onButtonClick = (event, row)=>{
-      console.log(row)
+
+    // Botton to remove experts 
+    // need delete request
+    // row is the object of the user 
+    const onButtonClick = (event, userObject)=>{
+      const requestOptions = { 
+        method:'DELETE'
+      }; 
+      console.log(userObject._id)
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/delete/" + userObject._id, requestOptions)
+      .then((response)=> {
+        return response.json();
+      }).then((result) => {
+        console.log(result);
+      })
+    }
+    // Botton to add unconfirmed experts -> experts 
+    // need post request
+    // row is the object of the user 
+
+    const onButtonClickAdd = (event, userObject)=>{
+      console.log(userObject)
     }
 
-    const onButtonClickAdd = (event, row)=>{
-      console.log(row)
-    }
+    
 
     
 
@@ -108,18 +127,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
         }
         
       ];
-      const rows = [
-        { id: 1, last_name: 'Snow', first_name: 'Jon', email: 'me@gmail.com' },
-        { id: 2, last_name: 'Lannister', first_name: 'Cersei', email: 'me@gmail.com'  },
-        { id: 3, last_name: 'Lannister', first_name: 'Jaime', email: 'me@gmail.com'  },
-        { id: 4, last_name: 'Stark', first_name: 'Arya', email: 'me@gmail.com'  },
-        { id: 5, last_name: 'Targaryen', first_name: 'Daenerys', email: 'me@gmail.com'  },
-        { id: 6, last_name: 'Melisandre', first_name: null, email: 'me@gmail.com'  },
-        { id: 7, last_name: 'Clifford', first_name: 'Ferrara', email: 'me@gmail.com'  },
-        { id: 8, last_name: 'Frances', first_name: 'Rossini', email: 'me@gmail.com'  },
-        { id: 9, last_name: 'Roxie', first_name: 'Harvey', email: 'me@gmail.com'  },
-      ];
-      
+    
    
     return (
       <div style={{ height: 650, width: '100%',  }}>
