@@ -9,6 +9,8 @@ import WebImage from '../componenet/WebImage';
 import CatagoryBox from '../componenet/CatagoryBox';
 import CatagoryBox2 from '../componenet/CategoryBox2';
 import CatagoryBox3 from '../componenet/CategoryBox3';
+import ReCAPTCHA from "react-google-recaptcha";
+import useState  from "react";
 
 
 const theme = createTheme({palette:
@@ -86,6 +88,9 @@ export default function Register() {
             >
               Register
             </Button>
+            <ReCAPTCHA
+            sitekey="6LfI9hEjAAAAABd2TUPXCRH2YDPDGvy5w0rBgR8S"
+            />
             
           </Box>
         </Box>
