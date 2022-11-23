@@ -27,7 +27,8 @@ function Search({ details }) {
   const [geo, setGeo] = React.useState('');
   const [searchGeographicField, setGeographicField] = useState("");
 
-  const filteredGeneralPersons = details.filter(
+
+  const filteredNamePersons = details.filter(
     person => {
       if (typeof(person.first_name) === 'undefined' && typeof(person.last_name) === 'undefined') {
         return details

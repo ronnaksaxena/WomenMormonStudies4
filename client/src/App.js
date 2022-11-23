@@ -10,6 +10,7 @@ import Search from "./componenet/Search.js";
 import Home from "./pages/Home";
 import Register from "./pages/Register.js";
 import Vision from "./pages/Vision.js";
+import Admin from "./pages/Admin.js";
 
 
 function App() {
@@ -53,7 +54,48 @@ function App() {
     })
   }, [])
 
-  console.log(backend)
+
+  const [backendForUnconfirmed, setBackendDataForUnconfirmed] = useState([{}])
+
+
+  useEffect (() => {
+    // Fetches the data as an array of bytes and converts to strea
+    fetch("http://localhost:3001/api/UnconfirmedExperts").then((response) => {
+      const body = response.body
+      const reader = body.getReader();
+      
+      return new ReadableStream({
+        start(controller) {
+          // The following function handles each data chunk
+          async function push() {
+            // "done" is a Boolean and value a "Uint8Array"
+            reader.read().then(({ done, value }) => {
+              // If there is no more data to read
+              if (done) {
+                controller.close();
+                return;
+              }
+              // Get the data and send it to the browser via the controller
+              controller.enqueue(value);
+              push();
+            });
+          }
+  
+          push();
+        },
+      })
+      
+    }).then((stream) => {
+      // Converts stream into string
+      return new Response(stream, { headers: { 'Content-Type': 'text/html' } }).text()
+    }).then((result) => {
+      // Parses string and conversts to data map object
+      const dataMap = JSON.parse(result);
+      setBackendDataForUnconfirmed(dataMap)
+    })
+  }, [])
+
+  console.log(backendForUnconfirmed)
   return (
 
     <div>
@@ -74,6 +116,8 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
+            <Route exact path='/admin/newell/' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+
     
           </Routes>
         </Fragment>
