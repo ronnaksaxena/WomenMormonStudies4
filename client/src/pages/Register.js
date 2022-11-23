@@ -7,6 +7,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
 import CatagoryBox from '../componenet/CatagoryBox';
+import CatagoryBox2 from '../componenet/CategoryBox2';
+import CatagoryBox3 from '../componenet/CategoryBox3';
+import ReCAPTCHA from "react-google-recaptcha";
+import useState  from "react";
 
 
 const theme = createTheme({palette:
@@ -72,10 +76,9 @@ export default function Register() {
               id="password"
               autoComplete="current-password"
             />
-            <CatagoryBox key = {1} name = "Method/Approach" options = {method}></CatagoryBox>
-            <CatagoryBox key = {2} name = "Topic" options = {topic}></CatagoryBox>
-            <CatagoryBox key = {3} name = "Time Period" options = {catagory}></CatagoryBox>
-            <CatagoryBox key = {4} name = "Geography" options = {location}></CatagoryBox>
+            <CatagoryBox key = {1} name = "Chronological Focus" options = {method}></CatagoryBox>
+            <CatagoryBox2 key = {2} name = "Topic" options = {topic}></CatagoryBox2>
+            <CatagoryBox3 key = {3} name = "Method/Approach" options = {catagory}></CatagoryBox3>
             <Button
               onClick={handleSubmit}
               type="submit"
@@ -85,6 +88,9 @@ export default function Register() {
             >
               Register
             </Button>
+            <ReCAPTCHA
+            sitekey="6LfI9hEjAAAAABd2TUPXCRH2YDPDGvy5w0rBgR8S"
+            />
             
           </Box>
         </Box>

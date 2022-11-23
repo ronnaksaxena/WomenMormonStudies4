@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import classes from './Home.module.css'
 import WebImage from "../componenet/WebImage";
+import background from "../pages/hero.jpeg";
 
 
 
@@ -18,7 +19,6 @@ export default function Home(){
             <div style={{ height: 650, width: '40%', float:'left', display:'inline'  }}>
                 <WebImage alt="a decorative tree"/>
             </div>
-                
         </div>
     )
 }

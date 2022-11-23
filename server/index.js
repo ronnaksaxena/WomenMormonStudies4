@@ -21,6 +21,15 @@ app.get('/api/Experts', (req, resp) => {
         resp.send(result)
     })
 })
+// To access experts that want to register
+app.get('/api/UnConfirmedExperts', (req, resp) => {
+    database.collection('UnconfirmedExperts').find({}).toArray((err, result) => {
+        if (err) throw err
+        console.log("sending this to get")
+        console.log(resp)
+        resp.send(result)
+    })
+})
 
 // To access mormon users
 app.get('/api/UnConfirmedExperts', (req, resp) => {

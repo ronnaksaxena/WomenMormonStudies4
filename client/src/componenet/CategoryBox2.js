@@ -27,7 +27,7 @@ function getStyles(method, approach, theme) {
   };
 }
 
-export default function CatagoryBox() {
+export default function CatagoryBox2() {
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
     setAge(event.target.value);
@@ -37,17 +37,22 @@ export default function CatagoryBox() {
   return (
     <Box sx={{ minWidth: 60 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Time Period</InputLabel>
+        <InputLabel id="demo-simple-select-label">Geographic Focus</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label="Time Period"
+          label="Geographic Focus"
           onChange={handleChange}
         >
-          <MenuItem value={'19th Century'}>19th century</MenuItem>
-          <MenuItem value={'20 Century'}>20th century</MenuItem>
-          <MenuItem value={'21 century'}>21st century</MenuItem>
+          <MenuItem value={'Africa'}>Africa</MenuItem>
+          <MenuItem value={'Asia'}>Asia</MenuItem>
+          <MenuItem value={'Australia and/or New Zealand'}>Australia and/or New Zealand</MenuItem>
+          <MenuItem value={'Pacific Islands'}>Pacific Islands</MenuItem>
+          <MenuItem value={'Europe'}>Europe</MenuItem>
+          <MenuItem value={'United States and/or Canada'}>United States and/or Canada</MenuItem>
+          <MenuItem value={'Latin America and/or Caribbean'}>Latin America and/or Caribbean</MenuItem>
+          <MenuItem value={'Middle East'}>Middle East</MenuItem>
           <MenuItem value={'N/A'}>N/A</MenuItem>
         </Select>
       </FormControl>
