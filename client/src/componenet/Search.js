@@ -28,7 +28,7 @@ function Search({ details }) {
   const [searchGeographicField, setGeographicField] = useState("");
 
 
-  const filteredNamePersons = details.filter(
+  const filteredGeneralPersons = details.filter(
     person => {
       if (typeof(person.first_name) === 'undefined' && typeof(person.last_name) === 'undefined') {
         return details
