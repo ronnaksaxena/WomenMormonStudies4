@@ -4,7 +4,6 @@ import { DataGrid} from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 
 
-
 export default function Admin({details, detailsOfUnconfirmed}){
 
 
@@ -15,31 +14,62 @@ export default function Admin({details, detailsOfUnconfirmed}){
       detailsOfUnconfirmed[i]["id"]= i
   }
 
-    // Botton to remove experts 
-    // need delete request
-    // row is the object of the user 
-    const onButtonClick = (event, userObject)=>{
+
+  const onButtonClickDeleteExpert = (event, userObject)=>{
+    const requestOptions = { 
+      method:'DELETE'
+    }; 
+    console.log(userObject._id)
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + userObject._id, requestOptions)
+    .then((response)=> {
+      return response.json();
+    }).then((result) => {
+      console.log(result);
+    })
+  }
+
+    
+
+    const moveAndDelete = (event, userObject)=>{
+      onButtonClickUnconfirmedAdd(event, userObject);
+      onButtonClickUnconfirmedDelete(event, userObject);
+    }
+
+    // used to remove users from db in Experts
+   
+
+    const onButtonClickUnconfirmedAdd = (event, userObject)=>{
+      console.log(userObject)
       const requestOptions = { 
-        method:'DELETE'
+        method:'POST',
+        body: JSON.stringify(userObject),
+        headers: {
+          'Content-Type': 'application/json'
+      },
       }; 
-      console.log(userObject._id)
-      fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/delete/" + userObject._id, requestOptions)
+      console.log(userObject)
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
       .then((response)=> {
         return response.json();
       }).then((result) => {
         console.log(result);
       })
     }
-    // Botton to add unconfirmed experts -> experts 
-    // need post request
+    // Botton to remove experts 
+    // need delete request
     // row is the object of the user 
-
-    const onButtonClickAdd = (event, userObject)=>{
-      console.log(userObject)
+    const onButtonClickUnconfirmedDelete = (event, userObject)=>{
+      const requestOptions = { 
+        method:'DELETE'
+      }; 
+      console.log(userObject._id)
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/" + userObject._id, requestOptions)
+      .then((response)=> {
+        return response.json();
+      }).then((result) => {
+        console.log(result);
+      })
     }
-
-    
-
     
 
     const columns = [
@@ -69,7 +99,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-              onClick={(e) => onButtonClick(e, params.row)}
+              onClick={(e) => onButtonClickDeleteExpert(e, params.row)}
               variant="contained"
             >
               Delete
@@ -105,7 +135,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-              onClick={(e) => onButtonClickAdd(e, params.row)}
+              onClick={(e) => moveAndDelete(e, params.row)}
               variant="contained"
             >
               Add
@@ -118,7 +148,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-              onClick={(e) => onButtonClick(e, params.row)}
+              onClick={(e) => onButtonClickUnconfirmedDelete(e, params.row)}
               variant="contained"
             >
               Deny
@@ -141,7 +171,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
             <DataGrid 
             rows={details}
             columns={columns}
-            rowsPerPageOptions={[5,10,25,50]}
+            rowsPerPageOptions={[5,10,25,50,100]}
             checkboxSelection
             disableSelectionOnClick
             
@@ -159,7 +189,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
             <DataGrid 
             rows={detailsOfUnconfirmed}
             columns={columns2}
-            rowsPerPageOptions={[5,10,25,50]}
+            rowsPerPageOptions={[5,10,25,50,100]}
             checkboxSelection
             disableSelectionOnClick
             
