@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+import { confirmAlert } from 'react-confirm-alert'; // Import
 
 
 export default function Admin({details, detailsOfUnconfirmed}){
@@ -16,6 +17,27 @@ export default function Admin({details, detailsOfUnconfirmed}){
 
     // Botton to remove experts 
     // need delete request
+
+  const confirmation =(event,userObject)=>{
+    confirmAlert({
+    title: 'Confirm to submit',
+    message: 'Are you sure to delete this Expert?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => onButtonClickDeleteExpert(event, userObject),
+        onClick: () => alert('User Deleted'),
+        onClick: () => window.location.reload(false)
+
+      },
+      {
+        label: 'No',
+        onClick: () => alert('User Not Deleted')
+      }
+    ]
+  });
+}
+
 
 
   const onButtonClickDeleteExpert = (event, userObject)=>{
@@ -33,9 +55,27 @@ export default function Admin({details, detailsOfUnconfirmed}){
   }
 
     const moveAndDelete = (event, userObject)=>{
-      onButtonClickUnconfirmedAdd(event, userObject);
-      onButtonClickUnconfirmedDelete(event, userObject);
+      confirmAlert({
+        title: 'Confirm to submit',
+        message: 'Are you sure to move this user to Experts?',
+        Button: [
+          {
+            label: 'Yes',
+            onClick: () => onButtonClickUnconfirmedAdd(event, userObject),
+            onClick: () => onButtonClickUnconfirmedDelete(event, userObject),
+            onClick: () => alert('User Deleted'),
+            onClick: () => window.location.reload(false)
+    
+          },
+          {
+            label: 'No',
+            onClick: () => alert('User Not Deleted')
+          }
+        ]
+      });
     }
+      
+    
     // Botton to add unconfirmed experts -> experts 
     // need post request
     // used to remove users from db in Experts
@@ -55,6 +95,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
       console.log(userObject)
       fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
       .then((response)=> {
+        alert("User added to Experts")
         return response.json();
       }).then((result) => {
         console.log(result);
@@ -70,13 +111,12 @@ export default function Admin({details, detailsOfUnconfirmed}){
       console.log(userObject._id)
       fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/" + userObject._id, requestOptions)
       .then((response)=> {
+        
         return response.json();
       }).then((result) => {
         console.log(result);
       })
     }
-    
-
     
 
     const columns = [
@@ -106,7 +146,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-              onClick={(e) => onButtonClickDeleteExpert(e, params.row)}
+              onClick={(e) => confirmation(e, params.row)}
               variant="contained"
             >
               Delete

@@ -116,7 +116,7 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
-            <Route exact path='/admin/newell/' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/adminside/newell/password=womeninmormonstudies' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
 
     
           </Routes>
