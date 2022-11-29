@@ -390,52 +390,172 @@ const topics = [
   },
 ];
 
-export default function RegisterExpertDetail() {
-  
+ function RegisterExpertDetail() {
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const requestOptions = { 
+      method:'POST',
+      body: JSON.stringify(myJSON),
+      headers: {
+        'Content-Type': 'application/json'
+    },
+    }; 
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/", requestOptions)
+    .then((response)=> {
+      return response.json();
+    }).then((result) => {
+      //console.log(result);
+    })
   };
+    const [firstName, setFirstName] = React.useState();
 
-  let navigate = useNavigate(); 
-    const routeChange = () =>{ 
-    let path = "../search"; 
-    navigate(path);
-    }
+    const handleFirstNameChange = (event) => {
+      setFirstName(event.target.value);
+    };
 
-    const [location, setLocation] = React.useState('EUR');
+    const [middleName, setMiddleName] = React.useState();
+
+    const handleMiddleNameChange = (event) => {
+      setMiddleName(event.target.value);
+    };
+
+    const [lastName, setLastName] = React.useState();
+
+    const handleLastNameChange = (event) => {
+      setLastName(event.target.value);
+    };
+
+    const [email, setEmail] = React.useState();
+
+    const handleEmailChange = (event) => {
+      setEmail(event.target.value);
+    };
+
+    const [password, setPassword] = React.useState();
+
+    const handlePasswordChange = (event) => {
+      setPassword(event.target.value);
+    };
+
+    const [title, setTitle] = React.useState();
+
+    const handleTitleChange = (event) => {
+      setTitle(event.target.value);
+    };
+
+    const [institution, setInstitution] = React.useState();
+
+    const handleInstitutionChange = (event) => {
+      setInstitution(event.target.value);
+    };
+
+    const [city, setCity] = React.useState();
+
+    const handleCityChange = (event) => {
+      setCity(event.target.value);
+    };
+
+    const [state, setState] = React.useState();
+
+    const handleStateChange = (event) => {
+      setState(event.target.value);
+    };
+
+    const [country, setCountry] = React.useState();
+
+    const handleCountryChange = (event) => {
+      setCountry(event.target.value);
+    };
+
+    const [socialMedia, setSocialMedia] = React.useState();
+
+    const handleSocialMediaChange = (event) => {
+      setSocialMedia(event.target.value);
+    };
+
+    const [website, setWebsite] = React.useState();
+
+    const handleWebsiteChange = (event) => {
+      setWebsite(event.target.value);
+    };
+
+    const [bibliography, setBibliography] = React.useState();
+
+    const handleBibliographyChange = (event) => {
+      setBibliography(event.target.value);
+    };
+
+    const [degree, setDegree] = React.useState();
+
+    const handleDegreeChange = (event) => {
+      setDegree(event.target.value);
+    };
+
+    const [categoriesOfDifference, setCategoriesOfDifference] = React.useState();
+
+    const handleCategoriesOfDifferenceChange = (event) => {
+      setCategoriesOfDifference(event.target.value);
+    };
+
+    const [broadAreas, setBroadAreas] = React.useState();
+
+    const handleBroadAreasChange = (event) => {
+      setBroadAreas(event.target.value);
+    };
+
+    const [keywords, setKeywords] = React.useState();
+
+    const handleKeywordsChange = (event) => {
+      setKeywords(event.target.value);
+    };
+
+    const [biography, setBiography] = React.useState();
+
+    const handleBiographyChange = (event) => {
+      setBiography(event.target.value);
+    };
+
+
+    const [location, setLocation] = React.useState();
 
     const handleLocationChange = (event) => {
       setLocation(event.target.value);
     };
 
-    const [method, setMethod] = React.useState('EUR');
-
+    const [method, setMethod] = React.useState();
     const handleMethodChange = (event) => {
       setMethod(event.target.value);
     };
 
-    const [topic, setTopic] = React.useState('EUR');
+    const [discipline, setDiscipline] = React.useState();
+    const handleDisciplineChange = (event) => {
+      setDiscipline(event.target.value);
+    };
+
+    const [topic, setTopic] = React.useState();
 
     const handleTopicChange = (event) => {
       setTopic(event.target.value);
     };
 
-    const [period, setPeriod] = React.useState('EUR');
+    const [period, setPeriod] = React.useState();
 
     const handlePeriodChange = (event) => {
       setPeriod(event.target.value);
     };
 
-    const [media, setMedia] = React.useState('EUR');
+    const [media, setMedia] = React.useState();
 
     const handleMediaChange = (event) => {
       setMedia(event.target.value);
     };
+
+    var myJSON = {"approved": "No", "bibliography": bibliography, "biographical_sketch": biography, "broad_areas": broadAreas, "categories_of_difference": categoriesOfDifference,
+    "city": city, "country": country, "date_recorded": "11/28/22", "date_updated": "11/28/22", "degree": degree, "discipline": discipline, "email": email, "first_name": firstName,
+    "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": keywords, "last_accessed": "11/28/22", "last_name": lastName, "last_update_user": "",
+    "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
+    "twitter_instagram_other_social_media": socialMedia, "website": website}
+    console.log(myJSON)
 
   return (
     <ThemeProvider theme={theme}>
@@ -453,40 +573,88 @@ export default function RegisterExpertDetail() {
       noValidate
       autoComplete="off"
     >
-      <div>
+
+    <div>
         
         <TextField
           required
           id="outlined-required"
           label="Required"
+          defaultValue="First Name"
+          onChange={handleFirstNameChange}
+          value = {firstName}
+        />
+
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Middle Name"
+          onChange={handleMiddleNameChange}
+          value = {middleName}
+        />
+
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Last Name"
+          onChange={handleLastNameChange}
+          value = {lastName}
+        />
+
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Email"
+          onChange={handleEmailChange}
+          value = {email}
+        />
+
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Password"
+          onChange={handlePasswordChange}
+          value = {password}
+        />
+
+      </div>
+
+      <div>
+        
+        <TextField
           defaultValue="Title"
+          onChange={handleTitleChange}
+          value = {title}
         />
+
         <TextField
-          required
-          id="outlined-required"
-          label="Required"
           defaultValue="Institutional Affifilation"
+          onChange={handleInstitutionChange}
+          value = {institution}
         />
         <TextField
-          required
-          id="outlined-required"
-          label="Required"
           defaultValue="City"
+          onChange={handleCityChange}
+          value = {city}
         />
         <TextField
-          required
-          id="outlined-required"
-          label="Required"
           defaultValue="State"
+          onChange={handleStateChange}
+          value = {state}
         />
          <TextField
-          required
-          id="outlined-required"
-          label="Required"
           defaultValue="Country"
+          onChange={handleCountryChange}
+          value = {country}
         />
       </div>
+
       <div>
+
         <TextField
           id="outlined-select-location"
           select
@@ -506,7 +674,7 @@ export default function RegisterExpertDetail() {
           id="outlined-select-location"
           select
           label="Select"
-          value={method}
+          value={discipline}
           onChange={handleMethodChange}
           helperText="Please select your method/discipline"
         >
@@ -563,20 +731,77 @@ export default function RegisterExpertDetail() {
         </TextField>
   
       </div>
+
+      <div>
+        
+        <TextField
+          defaultValue="Social Media"
+          onChange={handleSocialMediaChange}
+          value = {socialMedia}
+        />
+
+        <TextField
+        onChange={handleWebsiteChange}
+        value = {website}
+        />
+
+        <TextField
+          defaultValue="Bibliography"
+          onChange={handleBibliographyChange}
+          value = {bibliography}
+        />
+
+        <TextField
+          defaultValue="Degree"
+          onChange={handleDegreeChange}
+          value = {degree}
+        />
+
+        <TextField
+          defaultValue="Categories of Difference"
+          onChange={handleCategoriesOfDifferenceChange}
+          value = {categoriesOfDifference}
+        />
+      </div>
+
+      <div>
+        
+        <TextField
+          defaultValue="Broad Areas"
+          onChange={handleBroadAreasChange}
+          value = {broadAreas}
+        />
+
+          <TextField
+          defaultValue="Discipline"
+          onChange={handleDisciplineChange}
+          value = {discipline}
+        />
+
+        <TextField
+          defaultValue="Keywords"
+          onChange={handleKeywordsChange}
+          value = {keywords}
+        />
+      </div>
+
+      
       
       <div>
       <TextField
           id="outlined-multiline-static"
-          label="Bibliography"
+          label="Biography"
           multiline
           rows={10}
-          defaultValue="Your Bibliography Here"
+          defaultValue="Your Biography Here"
+          onChange={handleBiographyChange}
+          value = {biography}
         />
       </div>
 
       <Button
               onClick={handleSubmit}
-              onClick={routeChange}
+
               type="submit"
               
               variant="contained"
@@ -589,3 +814,5 @@ export default function RegisterExpertDetail() {
     </ThemeProvider>
   );
 }
+
+export default RegisterExpertDetail;

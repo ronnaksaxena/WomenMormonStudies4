@@ -11,6 +11,14 @@ import CatagoryBox2 from '../componenet/CategoryBox2';
 import CatagoryBox3 from '../componenet/CategoryBox3';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Expert from "../pages/RegisterExpertDetail";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import  {Fragment} from "react";
 
 const theme = createTheme({palette:
     {
@@ -22,26 +30,22 @@ const theme = createTheme({palette:
 export default function Register() {
 
   let navigate = useNavigate(); 
-    const routeExpertChange = () =>{ 
-    let path = "../registerexpertdetail"; 
-    navigate(path);
-    }
+  const routeExpertChange = () =>{ 
 
-  const handleExpertSubmit = (event) => {
-      const requestOptions = { 
-        method:'POST',
-        body: JSON.stringify(myJson),
-        headers: {
-          'Content-Type': 'application/json'
-      },
-      }; 
-      fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/", requestOptions)
-      .then((response)=> {
-        return response.json();
-      }).then((result) => {
-        //console.log(result);
-      })
-  };
+  let path = "../registerexpertdetail"; 
+  
+
+    (<Router>
+        <Fragment>
+          <Routes>
+            <Route exact path='../registerexpertdetail' element={<Expert details={myJSON}/>}/>
+          </Routes>
+        </Fragment>
+    </Router>)
+    navigate(path);
+  }
+
+    
 
   const [userType, setUserType] = useState('');
   const handleUserTypeChange = event => {
@@ -68,8 +72,8 @@ export default function Register() {
     setPassword(event.target.value);
   };
 
-  var myJson = {"first_name": firstName, "last_name":lastName, "email": email, "password": password}
-  console.log(myJson)
+  var myJSON = {"first_name": firstName, "last_name":lastName, "email": email, "password": password}
+  console.log(myJSON)
 
 
   return (
@@ -88,7 +92,7 @@ export default function Register() {
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
-          <Box component="form" onSubmit={handleExpertSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
           <CatagoryBox 
             key = {1} 
             name = "User Type"
@@ -152,8 +156,7 @@ export default function Register() {
 
             <Button
               //if (userType == )
-              onClick={handleExpertSubmit, routeExpertChange}
-              //onClick={routeExpertChange}
+              onClick={routeExpertChange}
               type="submit"
               fullWidth
               variant="contained"
