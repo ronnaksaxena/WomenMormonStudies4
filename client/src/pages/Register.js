@@ -9,9 +9,8 @@ import WebImage from '../componenet/WebImage';
 import CatagoryBox from '../componenet/CatagoryBox';
 import CatagoryBox2 from '../componenet/CategoryBox2';
 import CatagoryBox3 from '../componenet/CategoryBox3';
-import ReCAPTCHA from "react-google-recaptcha";
-import useState  from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const theme = createTheme({palette:
     {
@@ -21,18 +20,62 @@ const theme = createTheme({palette:
 });
 
 export default function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(Box);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+  let navigate = useNavigate(); 
+    const routeExpertChange = () =>{ 
+    let path = "../registerexpertdetail"; 
+    navigate(path);
+    }
+
+  const handleExpertSubmit = (event) => {
+      const requestOptions = { 
+        method:'POST',
+        body: JSON.stringify(myJson),
+        headers: {
+          'Content-Type': 'application/json'
+      },
+      }; 
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/", requestOptions)
+      .then((response)=> {
+        return response.json();
+      }).then((result) => {
+        //console.log(result);
+      })
   };
+
+  const [userType, setUserType] = useState('');
+  const handleUserTypeChange = event => {
+    setUserType(event.target.value);
+  };
+
+  const [firstName, setFirstName] = useState('');
+  const handleFirstNameChange = event => {
+    setFirstName(event.target.value);
+  };
+
+  const [lastName, setLastName] = useState('');
+  const handleLastNameChange = event => {
+    setLastName(event.target.value);
+  };
+
+  const [email, setEmail] = useState('');
+  const handleEmailChange = event => {
+    setEmail(event.target.value);
+  };
+
+  const [password, setPassword] = useState('');
+  const handlePasswordChange = event => {
+    setPassword(event.target.value);
+  };
+
+  var myJson = {"first_name": firstName, "last_name":lastName, "email": email, "password": password}
+  console.log(myJson)
+
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+        
         <Box
           sx={{
             marginTop: 8,
@@ -45,17 +88,41 @@ export default function Register() {
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleExpertSubmit} noValidate sx={{ mt: 1 }}>
+          <CatagoryBox 
+            key = {1} 
+            name = "User Type"
+            onChange={handleUserTypeChange}
+            value = {userType}
+            >
+            </CatagoryBox>
+
           <TextField
               margin="normal"
               required
               fullWidth
-              id="name"
-              label="Your Name"
-              name="name"
-              autoComplete="name"
+              id="firstname"
+              label="Your First Name"
+              name="firstname"
+              autoComplete="firstname"
               autoFocus
+              onChange={handleFirstNameChange}
+              value={firstName}
             />
+
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="lastname"
+              label="Your Last Name"
+              name="lastname"
+              autoComplete="lastname"
+              autoFocus
+              onChange={handleLastNameChange}
+              value={lastName}
+            />
+            
             <TextField
               margin="normal"
               required
@@ -65,7 +132,10 @@ export default function Register() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleEmailChange}
+              value={email}
             />
+
             <TextField
               margin="normal"
               required
@@ -75,12 +145,15 @@ export default function Register() {
               type="password"
               id="password"
               autoComplete="current-password"
+              autoFocus
+              onChange={handlePasswordChange}
+              value={password}
             />
-            <CatagoryBox key = {1} name = "Chronological Focus" options = {method}></CatagoryBox>
-            <CatagoryBox2 key = {2} name = "Topic" options = {topic}></CatagoryBox2>
-            <CatagoryBox3 key = {3} name = "Method/Approach" options = {catagory}></CatagoryBox3>
+
             <Button
-              onClick={handleSubmit}
+              //if (userType == )
+              onClick={handleExpertSubmit, routeExpertChange}
+              //onClick={routeExpertChange}
               type="submit"
               fullWidth
               variant="contained"
@@ -88,9 +161,7 @@ export default function Register() {
             >
               Register
             </Button>
-            <ReCAPTCHA
-            sitekey="6LfI9hEjAAAAABd2TUPXCRH2YDPDGvy5w0rBgR8S"
-            />
+
             
           </Box>
         </Box>

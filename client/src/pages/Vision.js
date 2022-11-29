@@ -73,6 +73,16 @@ export default function Vision() {
             >
               Sign In
             </Button>
+
+            <Button
+                onClick={handleSubmit}
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 ,color: 'white'}}
+            >
+              Forgot My Password
+            </Button>
             
           </Box>
         </Box>

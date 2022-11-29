@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register.js";
 import Vision from "./pages/Vision.js";
 import Admin from "./pages/Admin.js";
+import Expert from "./pages/RegisterExpertDetail";
+import User from "./pages/RegisterUserDetail";
 
 
 function App() {
@@ -116,7 +118,11 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
-            <Route exact path='/adminside/newell/password=womeninmormonstudies' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/admin/newell/' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/registerexpertdetail' element={<Expert/>}/>
+            <Route exact path='/registeruserdetail' element={<User/>}/>
+           
+
 
     
           </Routes>
