@@ -123,6 +123,7 @@ function App() {
             <Route exact path='/registeruserdetail' element={<User/>}/>
            
 
+
     
           </Routes>
         </Fragment>
