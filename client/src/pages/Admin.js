@@ -19,6 +19,8 @@ export default function Admin({details, detailsOfUnconfirmed}){
     // need delete request
 
   const confirmation =(event,userObject)=>{
+    alert('Scroll Down')
+
     confirmAlert({
     title: 'Confirm to submit',
     message: 'Are you sure to delete this Expert?',
@@ -55,6 +57,8 @@ export default function Admin({details, detailsOfUnconfirmed}){
   }
 
     const moveAndDelete = (event, userObject)=>{
+      alert('Scroll Down')
+
       confirmAlert({
         title: 'Confirm to submit',
         message: 'Are you sure to move this user to Experts?',
