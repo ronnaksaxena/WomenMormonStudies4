@@ -37,18 +37,16 @@ export default function CatagoryBox() {
   return (
     <Box sx={{ minWidth: 60 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Time Period</InputLabel>
+        <InputLabel id="demo-simple-select-label">Registration Type</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label="Time Period"
+          label="Registration Type"
           onChange={handleChange}
         >
-          <MenuItem value={'19th Century'}>19th century</MenuItem>
-          <MenuItem value={'20 Century'}>20th century</MenuItem>
-          <MenuItem value={'21 century'}>21st century</MenuItem>
-          <MenuItem value={'N/A'}>N/A</MenuItem>
+          <MenuItem value={'Expert'}>Expert</MenuItem>
+          <MenuItem value={'User'}>User</MenuItem>
         </Select>
       </FormControl>
     </Box>

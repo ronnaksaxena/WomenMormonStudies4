@@ -391,6 +391,7 @@ const topics = [
 ];
 
 export default function RegisterExpertDetail() {
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -569,7 +570,7 @@ export default function RegisterExpertDetail() {
           label="Bibliography"
           multiline
           rows={10}
-          defaultValue="Your Biography Here"
+          defaultValue="Your Bibliography Here"
         />
       </div>
 

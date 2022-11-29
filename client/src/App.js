@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register.js";
 import Vision from "./pages/Vision.js";
 import Admin from "./pages/Admin.js";
+import Expert from "./pages/RegisterExpertDetail";
+import User from "./pages/RegisterUserDetail";
 
 
 function App() {
@@ -60,7 +62,7 @@ function App() {
 
   useEffect (() => {
     // Fetches the data as an array of bytes and converts to strea
-    fetch("http://localhost:3001/api/UnconfirmedExperts").then((response) => {
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts").then((response) => {
       const body = response.body
       const reader = body.getReader();
       
@@ -117,6 +119,9 @@ function App() {
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
             <Route exact path='/admin/newell/' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/registerexpertdetail' element={<Expert/>}/>
+            <Route exact path='/registeruserdetail' element={<User/>}/>
+           
 
     
           </Routes>
