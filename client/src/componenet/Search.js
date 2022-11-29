@@ -5,6 +5,7 @@ import SearchList from './SearchList';
 import TextField from '@mui/material/TextField';
 import './Search.module.css';
 import Autocomplete from '@mui/material/Autocomplete';
+import background from "../pages/hero.jpeg";
 
 
 function Search({ details }) {
