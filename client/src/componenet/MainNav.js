@@ -16,7 +16,7 @@ function MainNavigation() {
             <Link id = "Vision page"to='/signin'>Sign In</Link>
           </li>
           <li>
-            <Link id ="Register page"to='/register'>Register as an Expert</Link>
+            <Link id ="Register page"to='/register'>Register</Link>
           </li>
           <li>
             <Link id ="Find expert page"to='/search'>Find an Expert</Link>
