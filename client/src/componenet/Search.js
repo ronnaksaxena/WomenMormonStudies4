@@ -5,16 +5,16 @@ import SearchList from './SearchList';
 import TextField from '@mui/material/TextField';
 import './Search.module.css';
 import Autocomplete from '@mui/material/Autocomplete';
+import background from "../pages/hero.jpeg";
 
 
 function Search({ details }) {
 
   const [searchGeneralField, setGeneralSearchField] = useState("");
-  const [period, setPeriod] = React.useState('');
   const [searchPeriodField, setPeriodField] = useState("");
-  const [geo, setGeo] = React.useState('');
   const [searchGeographicField, setGeographicField] = useState("");
 
+  console.log(details)
 
   const filteredGeneralPersons = details.filter(
     person => {
@@ -97,7 +97,6 @@ function Search({ details }) {
   );
   
   const filteredTimePeriod = filteredGeneralPersons.filter(
-    
     person => {
       if (typeof(person.time_period) === 'undefined') {
         return filteredGeneralPersons
@@ -114,7 +113,6 @@ function Search({ details }) {
   );
 
   const filteredGeographicAreas = filteredTimePeriod.filter(
-    
     person => {
       if (typeof(person.geographic_areas) === 'undefined') {
         return filteredTimePeriod
@@ -138,18 +136,10 @@ const handlePeriodChange = (event) => {
   setPeriodField(event.target.value);
   };
 
-const handleGeographicChange = (event) => {
-  console.log(event.target.value)
-  setGeo(event.target.value);
-  setGeographicField(event.target.value);
-  };
 
 const handleGeographicChange2 = (event) => {
-  console.log(event)
-  console.log(event.target.value)
   event.target.value.toLowerCase()
   setGeographicField(event.target.value);
-  setGeo(event.target.value)
   };
 
 

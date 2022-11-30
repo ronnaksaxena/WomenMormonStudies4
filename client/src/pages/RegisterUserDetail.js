@@ -1,23 +1,12 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
-import CatagoryBox from '../componenet/CatagoryBox';
-import CatagoryBox2 from '../componenet/CategoryBox2';
-import CatagoryBox3 from '../componenet/CategoryBox3';
-import CatagoryBox4 from '../componenet/CategoryBox4';
 import { useNavigate } from "react-router-dom";
-import MenuItem from '@mui/material/MenuItem';
-
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Switch from '@mui/material/Switch';
 
 

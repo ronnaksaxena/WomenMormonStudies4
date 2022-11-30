@@ -18,29 +18,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
     // Botton to remove experts 
     // need delete request
 
-  const confirmation =(event,userObject)=>{
-    alert('Scroll Down')
-
-    confirmAlert({
-    title: 'Confirm to submit',
-    message: 'Are you sure to delete this Expert?',
-    buttons: [
-      {
-        label: 'Yes',
-        onClick: () => onButtonClickDeleteExpert(event, userObject),
-        onClick: () => alert('User Deleted'),
-        onClick: () => window.location.reload(false)
-
-      },
-      {
-        label: 'No',
-        onClick: () => alert('User Not Deleted')
-      }
-    ]
-  });
-}
-
-
+      
 
   const onButtonClickDeleteExpert = (event, userObject)=>{
     const requestOptions = { 
@@ -49,6 +27,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
     console.log(userObject._id)
     fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + userObject._id, requestOptions)
     .then((response)=> {
+      alert("Expert Deleted")
 
       return response.json();
     }).then((result) => {
@@ -57,27 +36,9 @@ export default function Admin({details, detailsOfUnconfirmed}){
   }
 
     const moveAndDelete = (event, userObject)=>{
-      alert('Scroll Down')
-
-      confirmAlert({
-        title: 'Confirm to submit',
-        message: 'Are you sure to move this user to Experts?',
-        Button: [
-          {
-            label: 'Yes',
-            onClick: () => onButtonClickUnconfirmedAdd(event, userObject),
-            onClick: () => onButtonClickUnconfirmedDelete(event, userObject),
-            onClick: () => alert('User Deleted'),
-            onClick: () => window.location.reload(false)
-    
-          },
-          {
-            label: 'No',
-            onClick: () => alert('User Not Deleted')
-          }
-        ]
-      });
-    }
+        onButtonClickUnconfirmedAdd(event, userObject)
+        onButtonClickUnconfirmedDelete(event, userObject)
+      }
       
     
     // Botton to add unconfirmed experts -> experts 
@@ -150,7 +111,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-              onClick={(e) => confirmation(e, params.row)}
+              onClick={(e) => onButtonClickDeleteExpert(e, params.row)}
               variant="contained"
             >
               Delete
