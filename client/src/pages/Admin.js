@@ -19,7 +19,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
     // need delete request
 
       
-
   const onButtonClickDeleteExpert = (event, userObject)=>{
     const requestOptions = { 
       method:'DELETE'
@@ -83,7 +82,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
       })
     }
     
-
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -170,7 +168,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
         
       ];
     
-   
     return (
       <div style={{ height: 650, width: '100%',  }}>
           <div style={{ height: 650, width: '40%', float:'left', display:'inline', marginRight:'30px'  }}>
@@ -209,7 +206,5 @@ export default function Admin({details, detailsOfUnconfirmed}){
       )}
         </div>
         </div>
-        
-        
     )
 }

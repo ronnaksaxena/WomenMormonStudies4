@@ -1,4 +1,4 @@
-import { BottomNavigation } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, Button, Paper } from "@mui/material";
 import React, {useEffect, useState, Fragment} from "react";
 import {
   BrowserRouter as Router,
@@ -13,6 +13,10 @@ import Vision from "./pages/Vision.js";
 import Admin from "./pages/Admin.js";
 import Expert from "./pages/RegisterExpertDetail";
 import User from "./pages/RegisterUserDetail";
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import Box from '@mui/material/Box';
+import EmailIcon from '@mui/icons-material/Email';
 
 
 function App() {
@@ -100,7 +104,9 @@ function App() {
   console.log(backendForUnconfirmed)
   return (
 
-    <div>
+    <Box sx ={{height:1,width:1}}>
+      
+
 
       {(typeof(backend) === 'undefined') ?
       (
@@ -121,16 +127,23 @@ function App() {
             <Route exact path='/admin/newell/987654321' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
-           
-
-
-    
+          
           </Routes>
         </Fragment>
-        <BottomNavigation> 1 2 3 4</BottomNavigation>
       </Router>
       )}
-    </div>
+
+    <Paper elevation={24}>
+    
+        <BottomNavigation showLabels sx={{ width: 1, height :200, bgcolor:"#194D33" }}>
+          <Button sx={{ color: 'white', fontSize: 30, fontWeight: 'bold', borderColor: '#000000'}} > Contact Us</Button>
+            <BottomNavigationAction href= "https://twitter.com/WomeninMoStud" sx={{ color: "white" }} label="Twitter" icon = {<TwitterIcon sx={{padding: '5%'}}/>}/>
+            <BottomNavigationAction href = "https://www.facebook.com/womenmormonstudies/" sx={{ color: "white" }} label="Facebook" icon = {<FacebookIcon sx={{padding: '5%'}}/>}/>
+            <BottomNavigationAction label = "womeninmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
+          </BottomNavigation>
+          </Paper>
+    </Box>
+    
   )
 
 
