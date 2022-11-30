@@ -17,6 +17,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import Box from '@mui/material/Box';
 import EmailIcon from '@mui/icons-material/Email';
+import PersonSharpIcon from '@mui/icons-material/PersonSharp';
 
 
 function App() {
@@ -134,12 +135,16 @@ function App() {
       )}
 
     <Paper elevation={24}>
+    <Button sx={{ color: 'Black', fontSize: 30, fontWeight: 'bold', borderColor: '#000000'}} > Contact Us
+          </Button>
     
         <BottomNavigation showLabels sx={{ width: 1, height :200, bgcolor:"#194D33" }}>
-          <Button sx={{ color: 'white', fontSize: 30, fontWeight: 'bold', borderColor: '#000000'}} > Contact Us</Button>
-            <BottomNavigationAction href= "https://twitter.com/WomeninMoStud" sx={{ color: "white" }} label="Twitter" icon = {<TwitterIcon sx={{padding: '5%'}}/>}/>
-            <BottomNavigationAction href = "https://www.facebook.com/womenmormonstudies/" sx={{ color: "white" }} label="Facebook" icon = {<FacebookIcon sx={{padding: '5%'}}/>}/>
-            <BottomNavigationAction label = "womeninmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
+          
+          <BottomNavigationAction label = "womenmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
+          <BottomNavigationAction href = "../search"label = "Find an Expert" sx={{ color: "white" }} icon ={<PersonSharpIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
+
+            <BottomNavigationAction href= "https://twitter.com/WomeninMoStud" sx={{ color: "white" }} label="Our Twitter" icon = {<TwitterIcon sx={{padding: '5%'}}/>}/>
+            <BottomNavigationAction href = "https://www.facebook.com/womenmormonstudies/" sx={{ color: "white" }} label="Our Facebook" icon = {<FacebookIcon sx={{padding: '5%'}}/>}/>
           </BottomNavigation>
           </Paper>
     </Box>
