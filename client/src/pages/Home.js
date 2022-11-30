@@ -34,7 +34,7 @@ export default function Home(){
                 traditional and new media venues.
                 <Stack direction="column" spacing={2}>
 
-                <Button sx={{ color: '#008000', fontSize: 30, fontWeight: 'bold', marginTop: 15, border: 5, borderColor: '#000000' }}
+                <Button sx={{ color: '#008000', fontSize: 20, fontWeight: 'bold', marginTop: 10, marginLeft: 25, border: 2, borderColor: '#000000', width: '300px' }}
                  onClick={routeChange}
                 > 
                 FIND AN EXPERT! </Button>

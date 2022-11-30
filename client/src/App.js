@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, Button, Paper } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import React, {useEffect, useState, Fragment} from "react";
 import {
   BrowserRouter as Router,
@@ -135,10 +135,8 @@ function App() {
       )}
 
     <Paper elevation={24}>
-    <Button sx={{ color: 'Black', fontSize: 30, fontWeight: 'bold', borderColor: '#000000'}} > Contact Us
-          </Button>
     
-        <BottomNavigation showLabels sx={{ width: 1, height :200, bgcolor:"#194D33" }}>
+        <BottomNavigation showLabels sx={{ width: 1, height :150, bgcolor:"#194D33" }}>
           
           <BottomNavigationAction label = "womenmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
           <BottomNavigationAction href = "../search"label = "Find an Expert" sx={{ color: "white" }} icon ={<PersonSharpIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
