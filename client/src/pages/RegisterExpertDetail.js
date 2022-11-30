@@ -418,6 +418,7 @@ const topics = [
       //console.log(result);
     })
   };
+
     const [firstName, setFirstName] = React.useState();
 
     const handleFirstNameChange = (event) => {
@@ -573,7 +574,6 @@ const topics = [
     };
 
     const [password, setPassword] = React.useState();
-
     const handlePasswordChange = (event) => {
       setPassword(event.target.value);
     };
@@ -584,8 +584,6 @@ const topics = [
     "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
     "twitter_instagram_other_social_media": socialMedia, "website": website, "password": password}
     console.log(myJSON)
-
-    
 
   return (
     <ThemeProvider theme={theme}>
