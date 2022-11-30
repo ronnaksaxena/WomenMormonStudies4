@@ -3,15 +3,9 @@ import React from "react";
 import { Button } from "@mui/material";
 import classes from './Home.module.css'
 import WebImage from "../componenet/WebImage";
-import background from "../pages/hero.jpeg";
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-  } from "react-router-dom";
-  import Search from "../componenet/Search.js";
+
 
 
 
@@ -39,6 +33,7 @@ export default function Home(){
                 to help women in Mormon Studies amplify their voices in academic contexts as well as 
                 traditional and new media venues.
                 <Stack direction="column" spacing={2}>
+
                 <Button sx={{ color: '#008000', fontSize: 30, fontWeight: 'bold', marginTop: 15, border: 5, borderColor: '#000000' }}
                  onClick={routeChange}
                 > 

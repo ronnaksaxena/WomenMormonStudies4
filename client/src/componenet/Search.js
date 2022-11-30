@@ -5,8 +5,12 @@ import SearchList from './SearchList';
 import TextField from '@mui/material/TextField';
 import './Search.module.css';
 import Autocomplete from '@mui/material/Autocomplete';
-import background from "../pages/hero.jpeg";
-
+import classes from './Search.module.css'
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function Search({ details }) {
 
@@ -132,15 +136,21 @@ const handleGeneralChange = e => {
   setGeneralSearchField(e.target.value);
 };
 
+
+const [period, setPeriod] = React.useState('');
+
 const handlePeriodChange = (event) => {
-  setPeriodField(event.target.value);
+    setPeriod(event.target.value);
+    setPeriodField(event.target.value);
   };
 
+const [geographic, setGeographicLocation] = React.useState('');
 
-const handleGeographicChange2 = (event) => {
-  event.target.value.toLowerCase()
-  setGeographicField(event.target.value);
+const handleChange = (event) => {
+    setGeographicLocation(event.target.value);
+    setGeographicField(event.target.value);
   };
+
 
 
 function searchList() {
@@ -151,41 +161,21 @@ function searchList() {
   );
 }
 
-const header = {
-  color: "green",
-  fontWeight: "bold", 
-  margin: "10%",
-}
-
-const geographicareas = [
-  { label: 'Australia and/or New Zealand'},
-  { label: 'Asia'},
-  { label: 'Pacific Islands'},
-  { label: 'United States and/or Canada'},
-  { label: 'Europe'},
-  { label: 'Latin America and/or Caribbean'},
-  { label: 'Middle East'},
-];
-
-const timeperiod = [
-  { label: '19th Century'},
-  { label: '20th Century'},
-  { label: '21st Century'},
-];
 
   return (
     
       <section className="garamond">
-      <div className="pa2" style={{ color: 'darkgreen', left: "40%"}}>
-      <h1> Search For An Expert!</h1>
+
+      <div className="pa2" >
+      <h1 className={classes.text3}> Search For An Expert!</h1>
 
       <div className="navy georgia ma0 grow">
-        <h2 className="f2">General Filter</h2>
+        <h2 className={classes.text2} >General Filter</h2>
       </div>
 
       <div className="pa2" >
         <input 
-          className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
+          className={classes.general} 
           type = "search" 
           placeholder = "Enter A Word" 
           onChange = {handleGeneralChange}
@@ -193,27 +183,54 @@ const timeperiod = [
       </div>
 
       <div className="navy georgia ma0 grow">
-       <h2 className="f2">Geographic Filter</h2>
+       <h2  className={classes.text} >Geographic Filter </h2>
       </div>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={geographicareas}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Geographic Areas" onChange = {handleGeographicChange2}/>}
-      />
+      
+    <Box sx={{ maxWidth: 300, marginLeft: "40%" }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Geographic Location</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={geographic}
+          label="Geographic Location"
+          onChange={handleChange}
+        >
+          <MenuItem value={'australia and/or new zealand'}>Australia and/or New Zealand</MenuItem>
+          <MenuItem value={"asia"}>Asia</MenuItem>
+          <MenuItem value={"pacific islands"}>Pacific Islands</MenuItem>
+          <MenuItem value={'united states and/or canada'}>United States and/or Canada</MenuItem>
+          <MenuItem value={"europe"}>Europe</MenuItem>
+          <MenuItem value={"latin america and/or caribbean"}>Latin America and/or Caribbean</MenuItem>
+          <MenuItem value={"middle east"}>Middle East</MenuItem>
+          <MenuItem value={""}>Clear</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
 
       <div className="navy georgia ma0 grow">
-        <h2 className="f2">Time Period Filter</h2>
+        <h2 className={classes.text}>Time Period Filter</h2>
       </div>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={timeperiod}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Time Period" onChange = {handlePeriodChange}/>}
-      />
+      <Box sx={{ maxWidth: 300, marginLeft: "40%" }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Time Period</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={period}
+          label="Time Period"
+          onChange={handlePeriodChange}
+        >
+          <MenuItem value={'19'}>19th century</MenuItem>
+          <MenuItem value={"20"}>20th century</MenuItem>
+          <MenuItem value={"21"}>21st century</MenuItem>
+          <MenuItem value={""}>Clear</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
       </div>
+
+      
  
       
 
