@@ -13,6 +13,7 @@ import Vision from "./pages/Vision.js";
 import Admin from "./pages/Admin.js";
 import Expert from "./pages/RegisterExpertDetail";
 import User from "./pages/RegisterUserDetail";
+import ExpEdit from "./pages/ExpertEdit";
 
 
 function App() {
@@ -120,6 +121,7 @@ function App() {
             <Route exact path='/signin' element={<Vision/>}/>
             <Route exact path='/admin/newell/987654321' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
+            <Route exact path='/expertedit' element={<ExpEdit details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
            
 

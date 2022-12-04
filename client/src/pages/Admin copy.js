@@ -39,11 +39,11 @@ export default function Admin({details, detailsOfUnconfirmed}){
         onButtonClickUnconfirmedAdd(event, userObject)
         onButtonClickUnconfirmedDelete(event, userObject)
       }
+
     const change = (event, userObject)=>{
       console.log(JSON.parse(JSON.stringify(userObject)))
       onButtonClickUnconfirmedDelete(event,userObject)
-      userObject.first_name = ""
-      userObject.last_name = ""
+      userObject.first_name = "Test"
       onButtonClickUnconfirmedAdd(event, userObject)
     }
       
@@ -170,14 +170,14 @@ export default function Admin({details, detailsOfUnconfirmed}){
         },
         {
           field: 'Add?',
-          headerName: 'Edit',
+          headerName: 'Add',
           renderCell: (params)=>{
             return (
             <Button
               onClick={(e) => change(e, params.row)}
               variant="contained"
             >
-              Edit
+              Add
             </Button>)
             }
         },
