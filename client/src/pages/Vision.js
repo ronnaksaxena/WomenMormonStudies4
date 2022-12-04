@@ -19,13 +19,26 @@ const theme = createTheme({palette:
 });
 
 export default function Vision() {
+
+  const [email, setEmail] = React.useState('');
+  const handleEmailChange = event => {
+    setEmail(event.target.value);
+  };
+
+  const [password, setPassword] = React.useState('');
+  const handlePasswordChange = event => {
+    setPassword(event.target.value);
+  };
+  const handleredirect= () =>{
+    handleEmailChange()
+    handlePasswordChange()
+  };
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if( email == "shawn" && password == "shawn")
+    {
+      console.log("move")
+    }
   };
 
   return (
@@ -65,7 +78,7 @@ export default function Vision() {
               autoComplete="current-password"
             />
             <Button
-                onClick={handleSubmit}
+                onClick={handleredirect}
               type="submit"
               fullWidth
               variant="contained"
