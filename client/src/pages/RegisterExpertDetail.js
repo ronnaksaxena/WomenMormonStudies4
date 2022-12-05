@@ -247,13 +247,14 @@ const topics = [
   const form = React.useRef()
 
   const handleSubmit = (event) => {
-    emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
-      .then(result =>{
-        console.log(result.text);
-      },(error) => {
-        console.log(error.text);
-      }
-      )
+    // emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
+    //   .then(result =>{
+    //     console.log(result.text);
+    //   },(error) => {
+    //     console.log(error.text);
+    //   }
+    //   )
+    console.log(myJSON)
 
     const requestOptions = { 
       method:'POST',
@@ -444,11 +445,13 @@ const topics = [
 
     const [password, setPassword] = React.useState();
     const handlePasswordChange = (event) => {
+      console.log(password)
       setPassword(event.target.value);
+      // validate(event.target.value);
     };
 
-    var myJSON = {"approved": "No", "bibliography": "N/A", "biographical_sketch": biography, "broad_areas": 'N/A', "categories_of_difference": categoriesOfDifference,
-    "city": city, "country": country, "date_recorded": "N/A", "date_updated": "N/A", "degree": degree, "discipline": "N/A", "email": email, "first_name": firstName,
+    var myJSON = {"approved": "No", "first_name": firstName,"bibliography": "N/A", "biographical_sketch": biography, "broad_areas": 'N/A', "categories_of_difference": categoriesOfDifference,
+    "city": city, "country": country, "date_recorded": "N/A", "date_updated": "N/A", "degree": degree, "discipline": "N/A", "email": email, 
     "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": "N/A", "last_accessed": "N/A", "last_name": lastName, "last_update_user": "",
     "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
     "twitter_instagram_other_social_media": socialMedia, "website": website, "password": password}
@@ -524,7 +527,7 @@ const topics = [
             color: 'red',
           }}>{errorMessage}</span>}
                 
-          onChange={(e) => validate(e.target.value)}
+          // onChange={(e) => validate(e.target.value)}
         />
       </div>
 
