@@ -6,17 +6,17 @@ import classes from './MainNav.module.css';
 
 function MainNavigation() {
   return (
-    <Paper elevation={6}>
+    <Paper elevation={20}>
 
     <header className={classes.header}>
-      <div className={classes.logo}>Women In Mormon Studies</div>
+      <div className={classes.logo}>Women in Mormon Studies</div>
       <nav>
         <ul>
           <li>
             <Link id ="Home page"to='/'>Home</Link>
           </li>
           <li>
-            <Link id = "Vision page"to='/signin'>Sign In</Link>
+            <Link id = "Vision page"to='/signin'>Sign in</Link>
           </li>
           <li>
             <Link id ="Register page"to='/register'>Register</Link>

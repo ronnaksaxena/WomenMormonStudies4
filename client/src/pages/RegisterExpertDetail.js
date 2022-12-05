@@ -8,73 +8,143 @@ import WebImage from '../componenet/WebImage';
 import MenuItem from '@mui/material/MenuItem';
 import validator from 'validator'
 import { useState } from 'react';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { Theme, useTheme } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
+import classes from './RegisterExpertDetail.module.css'
 
 
 
-const theme = createTheme({palette:
-    {
-        primary:{main:"#008000"},
-        // secondary:{main:"yellow"}
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
     },
-});
+  },
+};
 
+const categories_of_differences = [
+  'I am a person of color',
+  'I am LGBTQ+',
+  'I am a person with a disability',
+  'I am a neurodiverse person',
+  'I am a military veteran',
+  'I am a first-generation college student/graduate',
+  'Other (please specify)',
+];
 
+function getStyles(category, personCategory, theme) {
+  return {
+    fontWeight:
+      personCategory.indexOf(category) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles2(location, personLocation, theme) {
+  return {
+    fontWeight:
+      personLocation.indexOf(location) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles3(time, personTimePeriod, theme) {
+  return {
+    fontWeight:
+      personTimePeriod.indexOf(time) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles4(time, personTimePeriod, theme) {
+  return {
+    fontWeight:
+      personTimePeriod.indexOf(time) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 const locations = [
-  {
-    value: 'Africa',
-    label: 'Africa',
-  },
-  {
-    value: 'Asia',
-    label: 'Asia',
-  },
-  {
-    value: 'Australia and/or New Zealand',
-    label: 'Australia and/or New Zealand',
-  },
-  {
-    value: 'Pacific Islands',
-    label: 'Pacific Islands',
-  },
-  {
-    value: 'Europe',
-    label: 'Europe',
-  },
-  {
-    value: 'United States and/or Canada',
-    label: 'United States and/or Canada',
-  },
-  {
-    value: 'Latin America and/or Caribbean',
-    label: 'Latin America and/or Caribbean',
-  },
-  {
-    value: 'Middle East',
-    label: 'Middle East',
-  },
-  {
-    value: 'N/A',
-    label: 'N/A',
-  },
+  'Asia',
+  'Australia and/or New Zealand',
+  'Pacific Islands',
+  'Europe',
+  'United States and/or Canada',
+  'Latin America and/or Caribbean',
+  'Middle East',
+  'N/A',
 ];
 
 const periods = [
+  '19th Century',
+  '20th Century',
+  '21st Century',
+  'N/A',
+];
+
+const degrees = [
   {
-    value: '19th Century',
-    label: '19th Century',
+    value: 'No advanced degree related to Mormon Studies',
+    label: 'No advanced degree related to Mormon Studies',
   },
   {
-    value: '20th Century',
-    label: '20th Century',
+    value: 'BA',
+    label: 'BA',
   },
   {
-    value: '21st Century',
-    label: '21st Century',
+    value: 'BS',
+    label: 'BS',
   },
   {
-    value: 'N/A',
-    label: 'N/A',
+    value: 'MA',
+    label: 'MA',
+  },
+  {
+    value: 'MTS',
+    label: 'MTS',
+  },
+  {
+    value: 'MDiv',
+    label: 'MDiv',
+  },
+  {
+    value: 'MEd',
+    label: 'MEd',
+  },
+  {
+    value: 'MSW',
+    label: 'MSW',
+  },
+  {
+    value: 'JD',
+    label: 'JD',
+  },
+  {
+    value: 'ABD',
+    label: 'ABD',
+  },
+  {
+    value: 'PhD',
+    label: 'PhD',
+  },
+  {
+    value: 'ThD',
+    label: 'ThD',
+  },
+  {
+    value: 'EdD',
+    label: 'EdD',
   },
 ];
 
@@ -91,314 +161,85 @@ const medias = [
 ];
 
 const methods = [
-  {
-    value: 'Anthropology',
-    label: 'Anthropology',
-  },
-  {
-    value: 'Area Studies',
-    label: 'Area Studies',
-  },
-  {
-    value: 'Art History',
-    label: 'Art History',
-  },
-  {
-    value: 'Creative Writing',
-    label: 'Creative Writing',
-  },
-  {
-    value: 'Disability Studies',
-    label: 'Disability Studies',
-  },
-  {
-    value: 'Economics',
-    label: 'Economics',
-  },
-  {
-    value: 'Ethnography',
-    label: 'Ethnography',
-  },
-  {
-    value: 'Ethnohistory',
-    label: 'Ethnohistory',
-  },
-  {
-    value: 'Gender Studies',
-    label: 'Gender Studies',
-  },
-  {
-    value: 'Genealogy',
-    label: 'Genealogy',
-  },
-  {
-    value: 'Geography',
-    label: 'Geography',
-  },
-  {
-    value: 'History',
-    label: 'History',
-  },
-  {
-    value: 'Linguistics',
-    label: 'Linguistics',
-  },
-  {
-    value: 'Literary Criticism',
-    label: 'Literary Criticism',
-  },
-  {
-    value: 'Oral History',
-    label: 'Oral History',
-  },
-  {
-    value: 'Performance Studies',
-    label: 'Performance Studies',
-  },
-  {
-    value: 'Philosophy',
-    label: 'Philosophy',
-  },
-  {
-    value: 'Political Science',
-    label: 'Political Science',
-  },
-  {
-    value: 'Psychology',
-    label: 'Psychology',
-  },
-  {
-    value: 'Public History',
-    label: 'Public History',
-  },
-  {
-    value: 'Religious Studies',
-    label: 'Religious Studies',
-  },
-  {
-    value: 'Rhetoric/Communication',
-    label: 'Rhetoric/Communication',
-  },
-  {
-    value: 'Sociology',
-    label: 'Sociology',
-  },
-  {
-    value: 'Statistics',
-    label: 'Statistics',
-  },
-  { 
-    value: 'Theology',
-    label: 'Theology',
-  },
-  {
-    value: 'N/A',
-    label: 'N/A',
-  },
-
+  'Anthropology',
+  'Area Studies',
+  'Art History',
+  'Creative Writing',
+  'Disability Studies',
+  'Economics',
+  'Ethnography',
+  'Ethnohistory',
+  'Gender Studies',
+  'Genealogy',
+  'Geography',
+  'History',
+  'Linguistics',
+  'Literary Criticism',
+  'Oral History',
+  'Performance Studies',
+  'Philosophy',
+  'Political Science',
+  'Psychology',
+  'Public History',
+  'Religious Studies',
+  'Rhetoric/Communication',
+  'Sociology',
+  'Statistics',
+  'Theology',
+  'N/A',
 ];
 
 const topics = [
-  {
-    value: 'Aesthetics',
-    label: 'Aesthetics',
-  },
-  {
-    value: 'Anti-Mormonism',
-    label: 'Anti-Mormonism',
-  },
-  {
-    value: 'Biography',
-    label: 'Biography',
-  },
-  {
-    value: 'Childhood/Youth',
-    label: 'Childhood/Youth',
-  },
-  {
-    value: 'Church Membership',
-    label: 'Church Membership',
-  },
-  {
-    value: 'Church of Jesus Christ of Latter-day Saints',
-    label: 'Church of Jesus Christ of Latter-day Saints',
-  },
-  {
-    value: 'Colonialism/imperialism',
-    label: 'Colonialism/imperialism',
-  },
-  {
-    value: 'Community of Christ (formerly Reorganized Church of Jesus Christ of Latter Day Saints)',
-    label: 'Community of Christ (formerly Reorganized Church of Jesus Christ of Latter Day Saints)',
-  },
-  {
-    value: 'Critical Race Studies',
-    label: 'Critical Race Studies',
-  },
-  {
-    value: 'Creative Writing (Fiction/Nonfiction/Poetry/etc.)',
-    label: 'Creative Writing (Fiction/Nonfiction/Poetry/etc.)',
-  },
-  {
-    value: 'Cultural History',
-    label: 'Cultural History',
-  },
-  {
-    value: 'Demography',
-    label: 'Demography',
-  },
-  {
-    value: 'Disability Studies',
-    label: 'Disability Studies',
-  },
-  {
-    value: 'Drama',
-    label: 'Drama',
-  },
-  {
-    value: 'Ecclesiology',
-    label: 'Ecclesiology',
-  },
-  {
-    value: 'Economics',
-    label: 'Economics',
-  },
-  {
-    value: 'Ethics',
-    label: 'Ethics',
-  },
-  {
-    value: 'Family structure',
-    label: 'Family structure',
-  },
-  {
-    value: 'Film',
-    label: 'Film',
-  },
-  {
-    value: 'Folklore/Storytelling',
-    label: 'Folklore/Storytelling',
-  },
-  {
-    value: 'Food',
-    label: 'Food',
-  },
-  {
-    value: 'Gender/Femininity/Masculinity/Sexuality',
-    label: 'Gender/Femininity/Masculinity/Sexuality',
-  },
-  {
-    value: 'Globalization',
-    label: 'Globalizatio',
-  },
-  {
-    value: 'Healing',
-    label: 'Healing',
-  },
-  { 
-    value: 'Interfaith/Interreligious Relations/Dialogue',
-    label: 'Interfaith/Interreligious Relations/Dialogue',
-  },
-  { 
-    value: 'Literature',
-    label: 'Literature',
-  },
-  { 
-    value: 'Material Culture',
-    label: 'Material Culture',
-  },
-  { 
-    value: 'Missions/Missiology',
-    label: 'Missions/Missiology',
-  },
-  { 
-    value: 'Motherhood',
-    label: 'Motherhood',
-  },
-  { 
-    value: 'Music',
-    label: 'Music',
-  },
-  { 
-    value: 'Other Mormon Traditions (AUB/Bickertonite/FLDS/Strangite/etc.)',
-    label: 'Other Mormon Traditions (AUB/Bickertonite/FLDS/Strangite/etc.)',
-  },
-  { 
-    value: 'Performance',
-    label: 'Performance',
-  },
-  { 
-    value: 'Philosophy',
-    label: 'Philosophy',
-  },
-  { 
-    value: 'Psychology',
-    label: 'Psychology',
-  },
-  { 
-    value: 'Politics/Political Issues/Political Engagement',
-    label: 'Politics/Political Issues/Political Engagement',
-  },
-  { 
-    value: 'Popular Culture',
-    label: 'Popular Culture',
-  },
-  { 
-    value: 'Race/Ethnicity',
-    label: 'Race/Ethnicity',
-  },
-  { 
-    value: 'Ritual Studies',
-    label: 'Ritual Studies',
-  },
-  { 
-    value: 'Sacred Space',
-    label: 'Sacred Space',
-  },
-  { 
-    value: 'Scripture',
-    label: 'Scripture',
-  },
-  { 
-    value: 'Social History',
-    label: 'Social History',
-  },
-  { 
-    value: 'Social Justice',
-    label: 'Social Justice',
-  },
-  { 
-    value: 'Sociology of Religion',
-    label: 'Sociology of Religion',
-  },
-  { 
-    value: 'Technical Communication',
-    label: 'Technical Communication',
-  },
-  { 
-    value: 'Temples',
-    label: 'Temples',
-  },
-  { 
-    value: 'Theology',
-    label: 'Theology',
-  },
-  { 
-    value: 'Translation',
-    label: 'Translation',
-  },
-  { 
-    value: 'Visual Culture',
-    label: 'Visual Culture',
-  },
-  { 
-    value: 'Womens History',
-    label: 'Womens History',
-  },
-  {
-    value: 'N/A',
-    label: 'N/A',
-  },
+  'Aesthetics',
+  'Anti-Mormonism',
+  'Biography',
+  'Childhood/Youth',
+  'Church Membership',
+  'Church of Jesus Christ of Latter-day Saints',
+  'Colonialism/imperialism',
+  'Community of Christ (formerly Reorganized Church of Jesus Christ of Latter Day Saints)',
+  'Critical Race Studies',
+  'Creative Writing (Fiction/Nonfiction/Poetry/etc.)',
+  'Cultural History',
+  'Demography',
+  'Disability Studies',
+  'Drama',
+  'Ecclesiology',
+  'Economics',
+  'Ethics',
+  'Family structure',
+  'Film',
+  'Folklore/Storytelling',
+  'Food',
+  'Gender/Femininity/Masculinity/Sexuality',
+  'Globalization',
+  'Healing',
+  'Interfaith/Interreligious Relations/Dialogue',
+  'Literature',
+  'Material Culture',
+  'Missions/Missiology',
+  'Motherhood',
+  'Music',
+  'Other Mormon Traditions (AUB/Bickertonite/FLDS/Strangite/etc.)',
+  'Performance',
+  'Philosophy',
+  'Psychology',
+  'Politics/Political Issues/Political Engagement',
+  'Popular Culture',
+  'Race/Ethnicity',
+  'Ritual Studies',
+  'Sacred Space',
+  'Scripture',
+  'Social History',
+  'Social Justice',
+  'Sociology of Religion',
+  'Technical Communication',
+  'Temples',
+  'Theology',
+  'Translation',
+  'Visual Culture',
+  'Womens History',
+  'N/A',
 ];
 
  function RegisterExpertDetail() {
@@ -443,8 +284,6 @@ const topics = [
       setEmail(event.target.value);
     };
 
-   
-
     const [title, setTitle] = React.useState();
 
     const handleTitleChange = (event) => {
@@ -462,8 +301,6 @@ const topics = [
     const handleCityChange = (event) => {
       setCity(event.target.value);
     };
-
-    
 
     const [country, setCountry] = React.useState();
 
@@ -483,12 +320,6 @@ const topics = [
       setWebsite(event.target.value);
     };
 
-    const [bibliography, setBibliography] = React.useState();
-
-    const handleBibliographyChange = (event) => {
-      setBibliography(event.target.value);
-    };
-
     const [degree, setDegree] = React.useState();
 
     const handleDegreeChange = (event) => {
@@ -497,20 +328,18 @@ const topics = [
 
     const [categoriesOfDifference, setCategoriesOfDifference] = React.useState();
 
+    const theme = useTheme();
+    const [personCategory, setPersonName] = React.useState([]);
+  
     const handleCategoriesOfDifferenceChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setCategoriesOfDifference(event.target.value);
-    };
-
-    const [broadAreas, setBroadAreas] = React.useState();
-
-    const handleBroadAreasChange = (event) => {
-      setBroadAreas(event.target.value);
-    };
-
-    const [keywords, setKeywords] = React.useState();
-
-    const handleKeywordsChange = (event) => {
-      setKeywords(event.target.value);
     };
 
     const [biography, setBiography] = React.useState();
@@ -519,32 +348,62 @@ const topics = [
       setBiography(event.target.value);
     };
 
-
     const [location, setLocation] = React.useState();
-
+    const [personLocation, setPersonLocation] = React.useState([]);
+  
     const handleLocationChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonLocation(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setLocation(event.target.value);
-    };
+    }; 
 
     const [method, setMethod] = React.useState();
+    const [personMethod, setPersonMethod] = React.useState([]);
+
     const handleMethodChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonMethod(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setMethod(event.target.value);
-    };
+        };
 
     const [discipline, setDiscipline] = React.useState();
-    const handleDisciplineChange = (event) => {
-      setDiscipline(event.target.value);
-    };
+
 
     const [topic, setTopic] = React.useState();
+    const [personTopic, setPersonTopic] = React.useState([]);
 
     const handleTopicChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonTopic(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setTopic(event.target.value);
     };
 
     const [period, setPeriod] = React.useState();
+    const [personTimePeriod, setPersonTimePeriod] = React.useState([]);
 
     const handlePeriodChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonTimePeriod(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setPeriod(event.target.value);
     };
 
@@ -578,9 +437,9 @@ const topics = [
       setPassword(event.target.value);
     };
 
-    var myJSON = {"approved": "No", "bibliography": bibliography, "biographical_sketch": biography, "broad_areas": broadAreas, "categories_of_difference": categoriesOfDifference,
-    "city": city, "country": country, "date_recorded": "N/A", "date_updated": "N/A", "degree": degree, "discipline": discipline, "email": email, "first_name": firstName,
-    "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": keywords, "last_accessed": "N/A", "last_name": lastName, "last_update_user": "",
+    var myJSON = {"approved": "No", "bibliography": "N/A", "biographical_sketch": biography, "broad_areas": 'N/A', "categories_of_difference": categoriesOfDifference,
+    "city": city, "country": country, "date_recorded": "N/A", "date_updated": "N/A", "degree": degree, "discipline": "N/A", "email": email, "first_name": firstName,
+    "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": "N/A", "last_accessed": "N/A", "last_name": lastName, "last_update_user": "",
     "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
     "twitter_instagram_other_social_media": socialMedia, "website": website, "password": password}
     console.log(myJSON)
@@ -589,7 +448,9 @@ const topics = [
     <ThemeProvider theme={theme}>
 
      
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5" sx={{
+          marginTop: '10px', marginLeft: '38%'
+        }}>
           <WebImage alt="a decorative tree"/>
           </Typography>
          
@@ -600,20 +461,25 @@ const topics = [
       }}
     >
 
-    <div>
+    <div className={classes.text}>
+    <TextField 
+          required
+          id="outlined-required"
+          onChange={handleTitleChange}
+          value = {title}
+          helperText="Please enter your title"
+        />
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleFirstNameChange}
           value = {firstName}
-          helperText="Please enter your first name"
+          helperText="Please enter your given name"
         />
 
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleMiddleNameChange}
           value = {middleName}
           helperText="Please enter your middle name"
@@ -622,16 +488,16 @@ const topics = [
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleLastNameChange}
           value = {lastName}
-          helperText="Please enter your last name"
+          helperText="Please enter your family name/surname"
         />
+        </div>
+        <div className={classes.text}>
 
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleEmailChange}
           value = {email}
           helperText="Please enter your email"
@@ -640,7 +506,6 @@ const topics = [
         <TextField
           required
           id="outlined-required"
-          label="Password (Required)"
           onChange={handlePasswordChange}
           value = {password}
           helperText= {errorMessage === '' ? null :
@@ -651,25 +516,13 @@ const topics = [
                 
           onChange={(e) => validate(e.target.value)}
         />
-
-
       </div>
 
-      <div>
+      <div className={classes.text}>
         
         <TextField
           required
           id="outlined-required"
-          label="Required"
-          onChange={handleTitleChange}
-          value = {title}
-          helperText="Please enter your title"
-        />
-
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
           onChange={handleInstitutionChange}
           value = {institution}
           helperText="Please enter your institutional affiliation"
@@ -678,7 +531,6 @@ const topics = [
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleCityChange}
           value = {city}
           helperText="Please enter your city"
@@ -687,87 +539,163 @@ const topics = [
         <TextField
           required
           id="outlined-required"
-          label="Required"
           onChange={handleStateChange}
           value = {state}
-          helperText="Please enter your state"
+          helperText="Please enter your state/province"
         />
          <TextField
           onChange={handleCountryChange}
           value = {country}
           required
           id="outlined-required"
-          label="Required"
           helperText="Please enter your country"
         />
       </div>
 
-      <div>
+      <div className={classes.text}>
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Desired Locations</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personLocation}
+            onChange={handleLocationChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {locations.map((location) => (
+              <MenuItem
+                key={location}
+                value={location}
+                style={getStyles2(location, personLocation, theme)}
+              >
+                {location}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Time Period</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personTimePeriod}
+            onChange={handlePeriodChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {periods.map((time) => (
+              <MenuItem
+                key={time}
+                value={time}
+                style={getStyles3(time, personTimePeriod, theme)}
+              >
+                {time}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Your Method/Discipline</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personMethod}
+            onChange={handleMethodChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {methods.map((method) => (
+              <MenuItem
+                key={method}
+                value={method}
+                style={getStyles4(method, personMethod, theme)}
+              >
+                {method}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Your Topic</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personTopic}
+            onChange={handleTopicChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {topics.map((topic) => (
+              <MenuItem
+                key={topic}
+                value={topic}
+                style={getStyles4(topic, personTopic, theme)}
+              >
+                {topic}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+  
+      </div>
+
+      <div className={classes.text}>
+        
+        <TextField
+          onChange={handleSocialMediaChange}
+          value = {socialMedia}
+          required
+          id="outlined-required"
+          helperText="Please enter your social media handles"
+        />
+
+        <TextField
+        onChange={handleWebsiteChange}
+        value = {website}
+        required
+        id="outlined-required"
+        helperText="Please enter your website url"
+        />
 
         <TextField
           id="outlined-select-location"
           select
-          label="Select (Required)"
-          value={location}
-          onChange={handleLocationChange}
-          helperText="Please select your geographic expertise"
-        >
-          {locations.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select (Required)"
-          value={discipline}
-          onChange={handleMethodChange}
-          helperText="Please select your method/discipline"
-        >
-          {methods.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select (Required)"
-          value={period}
-          onChange={handlePeriodChange}
-          helperText="Please select your time period"
-        >
-          {periods.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select (Required)"
-          value={topic}
-          onChange={handleTopicChange}
-          helperText="Please select your topic"
-        >
-          {topics.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select (Required)"
           value={media}
           onChange={handleMediaChange}
           helperText="Please select your media avaliability"
@@ -778,107 +706,73 @@ const topics = [
             </MenuItem>
           ))}
         </TextField>
-  
-      </div>
 
-      <div>
-        
         <TextField
-          onChange={handleSocialMediaChange}
-          value = {socialMedia}
+          id="outlined-select-location"
+          select
+          value={discipline}
           required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your social media handles"
-        />
-
-        <TextField
-        onChange={handleWebsiteChange}
-        value = {website}
-        required
-        id="outlined-required"
-        label="Required"
-        helperText="Please enter your website url"
-        />
-
-        <TextField
-          onChange={handleBibliographyChange}
-          value = {bibliography}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your bibliography url"
-        />
-
-        <TextField
           onChange={handleDegreeChange}
-          value = {degree}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your degree level"
-        />
+          helperText="Please select your highest degree related to your work in Mormon Studies"
+        >
+          {degrees.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <TextField
-          onChange={handleCategoriesOfDifferenceChange}
-          value = {categoriesOfDifference}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your category of difference"
-        />
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Categories of Difference</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personCategory}
+            onChange={handleCategoriesOfDifferenceChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {categories_of_differences.map((category) => (
+              <MenuItem
+                key={category}
+                value={category}
+                style={getStyles(category, personCategory, theme)}
+              >
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
       </div>
 
-      <div>
-        
-        <TextField
-          onChange={handleBroadAreasChange}
-          value = {broadAreas}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your broad areas of interest"
-        />
-
-          <TextField
-          onChange={handleDisciplineChange}
-          value = {discipline}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter your discipline"
-        />
-
-        <TextField
-          onChange={handleKeywordsChange}
-          value = {keywords}
-          required
-          id="outlined-required"
-          label="Required"
-          helperText="Please enter words to search on"
-        />
-      </div>
-
-      
-      
-      <div>
+ 
+      <div className={classes.text2}>
       <TextField
           id="outlined-multiline-static"
-          label="Biography (Required)"
           multiline
-          rows={10}
+          rows={5}
           onChange={handleBiographyChange}
           value = {biography}
           required
-          helperText="Please enter your biography"
+          helperText="Please write a brief description of yourself and your work to help those looking for experts. 
+          Feel free to include citations of relevant scholarly work, description of your research interests and current projects, and so on."
         />
       </div>
 
       <Button
               onClick={handleSubmit}
-              type="submit"
+              //type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '45%'}}
+              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%'}}
             >
               Register
             </Button>
