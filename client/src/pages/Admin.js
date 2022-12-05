@@ -242,7 +242,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
               onClick={(e) => change(e, params.row)}
               variant="contained"
             >
-              Edit
+              Add
             </Button>)
             }
         },
