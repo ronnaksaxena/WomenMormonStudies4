@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import { Theme, useTheme } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import classes from './RegisterExpertDetail.module.css'
-
+import emailjs from '@emailjs/browser'
 
 
 const ITEM_HEIGHT = 48;
@@ -38,6 +38,7 @@ const categories_of_differences = [
   'I am a first-generation college student/graduate',
   'Other (please specify)',
 ];
+
 
 function getStyles(category, personCategory, theme) {
   return {
@@ -243,8 +244,17 @@ const topics = [
 ];
 
  function RegisterExpertDetail() {
+  const form = React.useRef()
 
   const handleSubmit = (event) => {
+    emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
+      .then(result =>{
+        console.log(result.text);
+      },(error) => {
+        console.log(error.text);
+      }
+      )
+
     const requestOptions = { 
       method:'POST',
       body: JSON.stringify(myJSON),
