@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
+import CatagoryBox from '../componenet/CatagoryBox';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser'
 

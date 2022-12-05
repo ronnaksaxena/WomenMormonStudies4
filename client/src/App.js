@@ -138,7 +138,7 @@ function App() {
 
     <Paper elevation={24}>
     
-        <BottomNavigation showLabels sx={{ width: 1, height :150, bgcolor:"#194D33" }}>
+        <BottomNavigation showLabels sx={{ width: 1, height :200, bgcolor:"#194D33" }}>
           
           <BottomNavigationAction label = "womenmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
 

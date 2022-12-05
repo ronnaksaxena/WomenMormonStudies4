@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Email } from '@mui/icons-material';
 
 
+
 const theme = createTheme({palette:
     {
         primary:{main:"#008000"},
@@ -48,6 +49,7 @@ export default function Register() {
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
+
           <Box component="form" noValidate sx={{ mt: 1 }}>
 
 
@@ -73,7 +75,7 @@ export default function Register() {
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white'}}
             >
-              Register As An User
+              Register As A User
             </Button>
             
 

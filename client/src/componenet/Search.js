@@ -61,8 +61,6 @@ function Search({ details }) {
       myWindow.document.write("<br>Institutional Affiliation: " + selected_user.institutional_affiliation);
     }
   
-    
-  
   };
 
 const columns = [
