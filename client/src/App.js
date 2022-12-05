@@ -121,7 +121,7 @@ function App() {
             <Route exact path='/signin' element={<Vision/>}/>
             <Route exact path='/admin/newell/987654321' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
-            <Route exact path='/expertedit' element={<ExpEdit details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/expertedit' element={<ExpEdit/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
            
 

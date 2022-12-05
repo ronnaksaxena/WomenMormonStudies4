@@ -1,8 +1,5 @@
 import * as React from 'react';
-
-import { DataGrid} from '@mui/x-data-grid';
-import { Button } from '@mui/material';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -12,16 +9,8 @@ import WebImage from '../componenet/WebImage';
 import CatagoryBox from '../componenet/CatagoryBox';
 import CatagoryBox2 from '../componenet/CategoryBox2';
 import CatagoryBox3 from '../componenet/CategoryBox3';
+import CatagoryBox4 from '../componenet/CategoryBox4';
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Expert from "../pages/RegisterExpertDetail";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
-import  {Fragment} from "react";
 import MenuItem from '@mui/material/MenuItem';
 
 
@@ -31,7 +20,6 @@ const theme = createTheme({palette:
         // secondary:{main:"yellow"}
     },
 });
-
 
 const locations = [
   {
@@ -402,7 +390,7 @@ const topics = [
   },
 ];
 
-function ExpertEdit() {
+ function RegisterExpertDetail() {
 
   const handleSubmit = (event) => {
     const requestOptions = { 
@@ -411,8 +399,7 @@ function ExpertEdit() {
       headers: {
         'Content-Type': 'application/json'
     },
-    };
-
+    }; 
     fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/", requestOptions)
     .then((response)=> {
       return response.json();
@@ -420,52 +407,6 @@ function ExpertEdit() {
       //console.log(result);
     })
   };
-
-
-  const onButtonClickUnconfirmedAdd = (event, userObject)=>{
-      var deletedID = JSON.parse(JSON.stringify(userObject))
-      delete deletedID._id
-
-      const requestOptions = { 
-        method:'POST',
-        body: JSON.stringify(deletedID),
-        headers: {
-          'Content-Type': 'application/json'
-      },
-      }; 
-      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
-      .then((response)=> {
-        alert("User added to Experts")
-        return response.json();
-      }).then((result) => {
-        console.log(result);
-      })
-    }
-
-  const DeleteExpert = (event, userObject)=>{
-    const requestOptions = { 
-      method:'DELETE'
-    }; 
-    //console.log(userObject._id)
-    fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + userObject._id, requestOptions)
-    .then((response)=> {
-      alert("Expert Deleted")
-
-      return response.json();
-    }).then((result) => {
-      console.log(result);
-    })
-  }
-
-  const change = (event)=>{
-      handleSubmit(event);
-
-      onButtonClickUnconfirmedAdd(event, myJSON);
-      //DeleteExpert(event, myJSON);
-
-    }
-
-
     const [firstName, setFirstName] = React.useState();
 
     const handleFirstNameChange = (event) => {
@@ -858,16 +799,15 @@ function ExpertEdit() {
         />
       </div>
 
-
       <Button
-              onClick={change}
+              onClick={handleSubmit}
 
               type="submit"
               
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '45%'}}
             >
-              Apply Changes
+              Register
             </Button>
     </Box>
 
@@ -875,5 +815,4 @@ function ExpertEdit() {
   );
 }
 
-
-export default ExpertEdit;
+export default RegisterExpertDetail;
