@@ -6,6 +6,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
+import { useNavigate } from "react-router-dom";
+import emailjs from '@emailjs/browser'
+
+
 
 const theme = createTheme({palette:
     {
@@ -15,15 +19,58 @@ const theme = createTheme({palette:
 });
 
 export default function Vision() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const form = React.useRef()
 
+  let navigate = useNavigate(); 
+
+
+    // supposed to send get to move based on email
+    const onButtonSignIn = (event, userObject)=>{
+      const requestOptions = { 
+        method:'GET'
+      }; 
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + form.current.email.value, requestOptions)
+      .then((response)=> {
+        alert("userfound")
+  
+        return response.json();
+      }).then((result) => {
+        console.log(result);
+      })
+    }
+
+  const handleSubmit = (e)=>{
+    
+    let email = form.current.email.value 
+    let password = form.current.password.value
+    if ( email == "qnewell@hamilton.edu" && password == "Newell123!123!"){
+      let path = "../admin/newell/742000/12252000"; 
+      navigate(path);
+    }
+  }
+  const handleForgotPassword= (e) =>{
+    emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
+      .then(result =>{
+        console.log(result.text);
+      },(error) => {
+        console.log(error.text);
+      }
+      )
+    const requestOptions = { 
+      method:'GET',
+      
+    }; 
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
+    .then((response)=> {
+      
+      return response.json();
+    }).then((result) => {
+      console.log(result);
+    })
+    
+  }
+  
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -39,7 +86,7 @@ export default function Vision() {
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" ref = {form} onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -71,8 +118,8 @@ export default function Vision() {
             </Button>
 
             <Button
-                onClick={handleSubmit}
-              type="submit"
+                onClick={handleForgotPassword}
+              // type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white'}}

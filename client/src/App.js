@@ -126,7 +126,7 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
-            <Route exact path='/admin/newell/987654321' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/admin/newell/742000/12252000' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
             <Route exact path='/expertedit' element={<ExpEdit/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
@@ -141,7 +141,6 @@ function App() {
         <BottomNavigation showLabels sx={{ width: 1, height :150, bgcolor:"#194D33" }}>
           
           <BottomNavigationAction label = "womenmormonstudies@gmail.com" sx={{ color: "white" }} icon ={<EmailIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
-          <BottomNavigationAction href = "../search"label = "Find an Expert" sx={{ color: "white" }} icon ={<PersonSharpIcon sx={{padding: '5%'}}/>}></BottomNavigationAction>
 
             <BottomNavigationAction href= "https://twitter.com/WomeninMoStud" sx={{ color: "white" }} label="Our Twitter" icon = {<TwitterIcon sx={{padding: '5%'}}/>}/>
             <BottomNavigationAction href = "https://www.facebook.com/womenmormonstudies/" sx={{ color: "white" }} label="Our Facebook" icon = {<FacebookIcon sx={{padding: '5%'}}/>}/>

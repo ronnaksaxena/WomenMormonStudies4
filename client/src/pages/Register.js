@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
 import { useNavigate } from "react-router-dom";
+import { Email } from '@mui/icons-material';
+
 
 const theme = createTheme({palette:
     {
@@ -27,6 +29,8 @@ export default function Register() {
       navigate(path);
       }
 
+
+    
 
   return (
     <ThemeProvider theme={theme}>
@@ -62,6 +66,7 @@ export default function Register() {
             <Button
               //if (userType == )
               onClick={routeUserChange}
+              
               //onClick={routeExpertChange}
               type="submit"
               fullWidth
@@ -70,6 +75,7 @@ export default function Register() {
             >
               Register As An User
             </Button>
+            
 
             
           </Box>

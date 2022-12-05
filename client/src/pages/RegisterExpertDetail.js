@@ -8,7 +8,7 @@ import WebImage from '../componenet/WebImage';
 import MenuItem from '@mui/material/MenuItem';
 import validator from 'validator'
 import { useState } from 'react';
-
+import emailjs from '@emailjs/browser'
 
 
 const theme = createTheme({palette:
@@ -402,8 +402,17 @@ const topics = [
 ];
 
  function RegisterExpertDetail() {
+  const form = React.useRef()
 
   const handleSubmit = (event) => {
+    emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
+      .then(result =>{
+        console.log(result.text);
+      },(error) => {
+        console.log(error.text);
+      }
+      )
+
     const requestOptions = { 
       method:'POST',
       body: JSON.stringify(myJSON),
