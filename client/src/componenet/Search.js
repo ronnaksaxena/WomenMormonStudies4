@@ -1,223 +1,165 @@
 
-import React, { useState } from 'react';
-import Scroll from './Scroll';
-import SearchList from './SearchList';
-import TextField from '@mui/material/TextField';
+import React from 'react';
 import './Search.module.css';
-import Autocomplete from '@mui/material/Autocomplete';
-import background from "../pages/hero.jpeg";
+import classes from './Search.module.css'
+
+import { DataGrid} from '@mui/x-data-grid';
+import { Button } from '@mui/material';
+
 
 
 function Search({ details }) {
+  const show_user = (selected_user)=> {
 
-  const [searchGeneralField, setGeneralSearchField] = useState("");
-  const [searchPeriodField, setPeriodField] = useState("");
-  const [searchGeographicField, setGeographicField] = useState("");
-
-  console.log(details)
-
-  const filteredGeneralPersons = details.filter(
-    person => {
-      if (typeof(person.first_name) === 'undefined' && typeof(person.last_name) === 'undefined') {
-        return details
-      }
-      else{
-      return(
-        person
-        .bibliography
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .biographical_sketch
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .broad_areas
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .categories_of_difference
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .city
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .geographic_areas
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .country
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .date_recorded
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .date_updated
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .degree
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .discipline
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .first_name
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .institutional_affiliation
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .keywords
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .last_name
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .methods_approaches
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase()) ||
-        person
-        .state
-        .toLowerCase()
-        .includes(searchGeneralField.toLowerCase())
-      )
-      }
-    }
-  );
+    //alert(JSON.stringify(selected_user, null, 4));
+      
+    // New Tab Window
+    var myWindow = window.open("", "_blank");
   
-  const filteredTimePeriod = filteredGeneralPersons.filter(
-    person => {
-      if (typeof(person.time_period) === 'undefined') {
-        return filteredGeneralPersons
-      }
-      else{
-        return (
-        person
-        .time_period
-        .toLowerCase()
-        .includes(searchPeriodField)
-        )
-      }
+    // Popup Window
+    //var myWindow = window.open('/', 'example', "weight=100,height=100");
+  
+    // Basic Information
+    myWindow.document.write("Name: " + selected_user.first_name + " " + selected_user.last_name);
+    myWindow.document.write("<br>Email: " + selected_user.email);
+  
+    if (selected_user.categories_of_difference !== "") {
+      myWindow.document.write("<br>Categoties of Difference: " + selected_user.categories_of_difference);
     }
-  );
-
-  const filteredGeographicAreas = filteredTimePeriod.filter(
-    person => {
-      if (typeof(person.geographic_areas) === 'undefined') {
-        return filteredTimePeriod
-      }
-      else{
-        return (
-        person
-        .geographic_areas
-        .toLowerCase()
-        .includes(searchGeographicField)
-        )
-      }
+  
+    if (selected_user.categories_of_difference !== "") {
+      myWindow.document.write("<br>Geographic Areas: " + selected_user.geographic_areas);
     }
-  );
-
-const handleGeneralChange = e => {
-  setGeneralSearchField(e.target.value);
-};
-
-const handlePeriodChange = (event) => {
-  setPeriodField(event.target.value);
+  
+    if (selected_user.discipline !== "") {
+    myWindow.document.write("<br>Discipline: " + selected_user.discipline + '<br>');
+    }
+  
+    // Location Specifications
+    if (selected_user.city !== "") {
+       myWindow.document.write("<br>City: " + selected_user.city);
+    } if (selected_user.state !== "") {
+      myWindow.document.write("<br>State: " + selected_user.state);
+    } if (selected_user.country !== "") {
+      myWindow.document.write("<br>Country: " + selected_user.country);
+    }
+  
+    // Expert Bio
+    if (selected_user.biographical_sketch !== "") {
+      myWindow.document.write("<br><br>Biographical Sketch: " + selected_user.biographical_sketch);
+    }
+    if (selected_user.twitter_intagram_other_social_media !== "") {
+      myWindow.document.write("<br>Social Media: " + selected_user.twitter_intagram_other_social_media);
+    } if (selected_user.media_availability !== "") {
+      myWindow.document.write("<br>Media Availability: " + selected_user.media_availability);
+    }
+  
+    if (selected_user.title !== "") {
+      myWindow.document.write("<br>Title: " + selected_user.title);
+    }
+    if (selected_user.institutional_affiliation !== "") {
+      myWindow.document.write("<br>Institutional Affiliation: " + selected_user.institutional_affiliation);
+    }
+  
+    
+  
   };
 
-
-const handleGeographicChange2 = (event) => {
-  event.target.value.toLowerCase()
-  setGeographicField(event.target.value);
-  };
-
-
-function searchList() {
-  return (
-    <Scroll>
-      <SearchList filteredPersons={filteredGeographicAreas} />
-    </Scroll>
-  );
-}
-
-const header = {
-  color: "green",
-  fontWeight: "bold", 
-  margin: "10%",
-}
-
-const geographicareas = [
-  { label: 'Australia and/or New Zealand'},
-  { label: 'Asia'},
-  { label: 'Pacific Islands'},
-  { label: 'United States and/or Canada'},
-  { label: 'Europe'},
-  { label: 'Latin America and/or Caribbean'},
-  { label: 'Middle East'},
+const columns = [
+  {
+    field: 'first_name',
+    headerName: 'First name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'last_name',
+    headerName: 'Last name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'city',
+    headerName: 'City',
+    type: 'City',
+    width: 210,
+    editable: true,
+  },
+  {
+    field: 'geographic_areas',
+    headerName: 'Geographic Area',
+    type: 'Geography',
+    width: 210,
+    editable: true,
+  },
+  {
+    field: 'time_period',
+    headerName: 'Time Period',
+    type: 'Time Period',
+    width: 210,
+    editable: true,
+  },
+  {
+    field: 'institutional_affiliation',
+    headerName: 'Institution',
+    type: 'Institution',
+    width: 210,
+    editable: true,
+  },
+  {
+    field: 'discipline',
+    headerName: 'Discipline',
+    type: 'Discipline',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'View?',
+    headerName: 'View',
+    renderCell: (params)=>{
+      return (
+      <Button
+        onClick={(e) => show_user(params.row)}
+        variant="contained"
+      >
+        View
+      </Button>)
+      }
+  },
+  
 ];
 
-const timeperiod = [
-  { label: '19th Century'},
-  { label: '20th Century'},
-  { label: '21st Century'},
-];
 
   return (
     
       <section className="garamond">
-      <div className="pa2" style={{ color: 'darkgreen', left: "40%"}}>
-      <h1> Search For An Expert!</h1>
 
-      <div className="navy georgia ma0 grow">
-        <h2 className="f2">General Filter</h2>
-      </div>
 
-      <div className="pa2" >
-        <input 
-          className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
-          type = "search" 
-          placeholder = "Enter A Word" 
-          onChange = {handleGeneralChange}
-        />
-      </div>
+      <h1 className={classes.text3}> Search For An Expert!</h1>
 
-      <div className="navy georgia ma0 grow">
-       <h2 className="f2">Geographic Filter</h2>
-      </div>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={geographicareas}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Geographic Areas" onChange = {handleGeographicChange2}/>}
-      />
-
-      <div className="navy georgia ma0 grow">
-        <h2 className="f2">Time Period Filter</h2>
-      </div>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={timeperiod}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Time Period" onChange = {handlePeriodChange}/>}
-      />
-      </div>
+     
+      <div style={{ height: 650, width: '100%',  }}>
+          <div style={{ height: 500, width: '95%', float:'left', display:'inline', marginLeft:'40px'  }}>
+          {(typeof(details) === 'undefined') ?
+      (
+        <p>Loading...</p>
+      ):
+      (
+            <DataGrid 
+            rows={details} 
+            columns={columns}
+            rowsPerPageOptions={[5,10,25,50,100]}
+            disableSelectionOnClick
+            
+            ></DataGrid>
+      )}
+        </div>
+        </div>
+      
  
       
 
-    {searchList()}
+    
     
       
   </section>

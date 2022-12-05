@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-
 
 export default function Admin({details, detailsOfUnconfirmed}){
 
@@ -18,8 +16,63 @@ export default function Admin({details, detailsOfUnconfirmed}){
     // Botton to remove experts 
     // need delete request
 
-      
+    const show_user = (selected_user)=> {
 
+      //alert(JSON.stringify(selected_user, null, 4));
+        
+      // New Tab Window
+      var myWindow = window.open("", "_blank");
+    
+      // Popup Window
+      //var myWindow = window.open('/', 'example', "weight=100,height=100");
+    
+      // Basic Information
+      myWindow.document.write("Name: " + selected_user.first_name + " " + selected_user.last_name);
+      myWindow.document.write("<br>Email: " + selected_user.email);
+    
+      if (selected_user.categories_of_difference !== "") {
+        myWindow.document.write("<br>Categoties of Difference: " + selected_user.categories_of_difference);
+      }
+    
+      if (selected_user.categories_of_difference !== "") {
+        myWindow.document.write("<br>Geographic Areas: " + selected_user.geographic_areas);
+      }
+    
+      if (selected_user.discipline !== "") {
+      myWindow.document.write("<br>Discipline: " + selected_user.discipline + '<br>');
+      }
+    
+      // Location Specifications
+      if (selected_user.city !== "") {
+         myWindow.document.write("<br>City: " + selected_user.city);
+      } if (selected_user.state !== "") {
+        myWindow.document.write("<br>State: " + selected_user.state);
+      } if (selected_user.country !== "") {
+        myWindow.document.write("<br>Country: " + selected_user.country);
+      }
+    
+      // Expert Bio
+      if (selected_user.biographical_sketch !== "") {
+        myWindow.document.write("<br><br>Biographical Sketch: " + selected_user.biographical_sketch);
+      }
+      if (selected_user.twitter_intagram_other_social_media !== "") {
+        myWindow.document.write("<br>Social Media: " + selected_user.twitter_intagram_other_social_media);
+      } if (selected_user.media_availability !== "") {
+        myWindow.document.write("<br>Media Availability: " + selected_user.media_availability);
+      }
+    
+      if (selected_user.title !== "") {
+        myWindow.document.write("<br>Title: " + selected_user.title);
+      }
+      if (selected_user.institutional_affiliation !== "") {
+        myWindow.document.write("<br>Institutional Affiliation: " + selected_user.institutional_affiliation);
+      }
+    
+      
+    
+    };
+
+      
   const onButtonClickDeleteExpert = (event, userObject)=>{
     const requestOptions = { 
       method:'DELETE'
@@ -110,7 +163,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
       })
     }
     
-
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -144,7 +196,20 @@ export default function Admin({details, detailsOfUnconfirmed}){
               Delete
             </Button>)
             }
-        }
+        },
+        {
+          field: 'View?',
+          headerName: 'View',
+          renderCell: (params)=>{
+            return (
+            <Button
+              onClick={(e) => show_user(params.row)}
+              variant="contained"
+            >
+              View
+            </Button>)
+            }
+        },
         
       ];
       const columns2 = [
@@ -193,14 +258,27 @@ export default function Admin({details, detailsOfUnconfirmed}){
               Deny
             </Button>)
             }
-        }
+        },
+        
+        {
+          field: 'View?',
+          headerName: 'View',
+          renderCell: (params)=>{
+            return (
+            <Button
+            onClick={(e) => show_user(params.row)}
+            variant="contained"
+            >
+              View
+            </Button>)
+            }
+        },
         
       ];
     
-   
     return (
       <div style={{ height: 650, width: '100%',  }}>
-          <div style={{ height: 650, width: '40%', float:'left', display:'inline', marginRight:'30px'  }}>
+          <div style={{ height: 500, width: '40%', float:'left', display:'inline', marginLeft:'30px'  }}>
             <p>Current Experts</p>
           {(typeof(details) === 'undefined') ?
       (
@@ -211,13 +289,13 @@ export default function Admin({details, detailsOfUnconfirmed}){
             rows={details}
             columns={columns}
             rowsPerPageOptions={[5,10,25,50,100]}
-            checkboxSelection
+            checkboxSelection = {false}
             disableSelectionOnClick
-            
+
             ></DataGrid>
       )}
         </div>
-        <div style={{ height: 650, width: '50%', float:'left', display:'inline'  }}>
+        <div style={{ height: 500, width: '50%', float:'left', display:'inline', marginLeft: '30px' }}>
         <p>Experts looking to Register</p>
 
           {(typeof(details) === 'undefined') ?
@@ -229,14 +307,12 @@ export default function Admin({details, detailsOfUnconfirmed}){
             rows={detailsOfUnconfirmed}
             columns={columns2}
             rowsPerPageOptions={[5,10,25,50,100]}
-            checkboxSelection
+            checkboxSelection = {false}
             disableSelectionOnClick
             
             ></DataGrid>
       )}
         </div>
         </div>
-        
-        
     )
 }
