@@ -457,10 +457,39 @@ function ExpertEdit() {
     })
   }
 
+
+  const updateExpert = (event, userObject)=>{
+    const requestOptions = { 
+        method:'PATCH',
+        body: JSON.stringify(userObject),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }; 
+
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + "638f44cd721f19fb31b39a5d", requestOptions)
+      .then((response)=> {
+        alert("Expert Updated")
+
+      return response.json();
+      }).then((result) => {
+      console.log(result);
+      })
+    }
+
+
   const change = (event)=>{
+
+
       handleSubmit(event);
 
+      //myJSON.first_name = "ee";
+
+      //updateExpert(event, myJSON);
+
       onButtonClickUnconfirmedAdd(event, myJSON);
+
+      //myJSON._id = "638f44cd721f19fb31b39a5d";
       //DeleteExpert(event, myJSON);
 
     }
