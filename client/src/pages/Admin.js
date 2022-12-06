@@ -77,7 +77,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
     const requestOptions = { 
       method:'DELETE'
     }; 
-    console.log(userObject._id)
     fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + userObject._id, requestOptions)
     .then((response)=> {
       alert("Expert Deleted")
@@ -87,16 +86,9 @@ export default function Admin({details, detailsOfUnconfirmed}){
       console.log(result);
     })
   }
-
-    const moveAndDelete = (event, userObject)=>{
-        onButtonClickUnconfirmedAdd(event, userObject)
-        onButtonClickUnconfirmedDelete(event, userObject)
-      }
     const change = (event, userObject)=>{
-      console.log(JSON.parse(JSON.stringify(userObject)))
       onButtonClickUnconfirmedDelete(event,userObject)
-      userObject.first_name = ""
-      userObject.last_name = ""
+     
       onButtonClickUnconfirmedAdd(event, userObject)
     }
       
@@ -107,7 +99,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
    
 
     const onButtonClickUnconfirmedAdd = (event, userObject)=>{
-      var deletedID = JSON.parse(JSON.stringify(userObject))
+      var deletedID = structuredClone(userObject)
       delete deletedID._id
 
       const requestOptions = { 
@@ -117,27 +109,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
           'Content-Type': 'application/json'
       },
       }; 
-      console.log(userObject)
-      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
-      .then((response)=> {
-        alert("User added to Experts")
-        return response.json();
-      }).then((result) => {
-        console.log(result);
-      })
-    }
-    const onButtonClickUnconfirmedChange = (event, userObject)=>{
-      var deletedID = JSON.parse(JSON.stringify(userObject))
-      delete deletedID._id
-
-      const requestOptions = { 
-        method:'POST',
-        body: JSON.stringify(deletedID),
-        headers: {
-          'Content-Type': 'application/json'
-      },
-      }; 
-      console.log(userObject)
       fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
       .then((response)=> {
         alert("User added to Experts")
@@ -153,7 +124,6 @@ export default function Admin({details, detailsOfUnconfirmed}){
       const requestOptions = { 
         method:'DELETE'
       }; 
-      console.log(userObject._id)
       fetch("https://womenmormonstudies-server.herokuapp.com/api/UnconfirmedExperts/" + userObject._id, requestOptions)
       .then((response)=> {
         
@@ -190,6 +160,8 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
+            type = 'submit'
+
               onClick={(e) => onButtonClickDeleteExpert(e, params.row)}
               variant="contained"
             >
@@ -203,6 +175,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
+
               onClick={(e) => show_user(params.row)}
               variant="contained"
             >
@@ -239,9 +212,13 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
+            type = 'submit'
+
               onClick={(e) => change(e, params.row)}
               variant="contained"
+              
             >
+              
               Add
             </Button>)
             }
@@ -252,6 +229,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
+            type = 'submit'
               onClick={(e) => onButtonClickUnconfirmedDelete(e, params.row)}
               variant="contained"
             >

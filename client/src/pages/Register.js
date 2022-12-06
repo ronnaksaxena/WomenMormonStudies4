@@ -6,6 +6,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
 import { useNavigate } from "react-router-dom";
+import { Email } from '@mui/icons-material';
+
+
 
 const theme = createTheme({palette:
     {
@@ -28,6 +31,8 @@ export default function Register() {
       }
 
 
+    
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -44,6 +49,7 @@ export default function Register() {
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
+
           <Box component="form" noValidate sx={{ mt: 1 }}>
 
 
@@ -62,14 +68,16 @@ export default function Register() {
             <Button
               //if (userType == )
               onClick={routeUserChange}
+              
               //onClick={routeExpertChange}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white'}}
             >
-              Register As An User
+              Register As A User
             </Button>
+            
 
             
           </Box>
