@@ -447,7 +447,7 @@ const topics = [
     const handlePasswordChange = (event) => {
       console.log(password)
       setPassword(event.target.value);
-      // validate(event.target.value);
+      validate(event.target.value)
     };
 
     var myJSON = {"approved": "No", "first_name": firstName,"bibliography": "N/A", "biographical_sketch": biography, "broad_areas": 'N/A', "categories_of_difference": categoriesOfDifference,

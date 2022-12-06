@@ -50,27 +50,50 @@ export default function Vision() {
     }
   }
   const handleForgotPassword= (e) =>{
-    emailjs.sendForm('service_owv6uf2','newell_email', form.current, 'p0uNpijVQNgR4VtYC')
-      .then(result =>{
-        console.log(result.text);
-      },(error) => {
-        console.log(error.text);
-      }
-      )
+ 
     const requestOptions = { 
       method:'GET',
       
     }; 
     fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
     .then((response)=> {
-      
       return response.json();
     }).then((result) => {
-      console.log(result);
+      console.log(result)
+
+      const email = form.current.email.value;
+      var found = false;
+      var password;
+      let myJSON = {"email": form.current.email.value, "password": null}
+
+
+      Object.keys(result).forEach(function(key) {
+        if (result[key].email == email)
+        {
+          found = true
+          password = result[key].password
+          myJSON["password"] = password
+          console.log(myJSON)
+        }
+        
+      })
+      if (!found){
+        alert("Couldn't find your email. Fix the typo or register as an expert!")
+      }
+      else
+      {
+        console.log(typeof(myJSON))
+        emailjs.send('service_owv6uf2','password_remember', myJSON, 'p0uNpijVQNgR4VtYC')
+        .then(result =>{
+          console.log(result.text);
+        },(error) => {
+          console.log(error.text);
+        }
+        )
+        alert("Your password was sent to your email")
+      }
     })
-    
   }
-  
   
   return (
     <ThemeProvider theme={theme}>
