@@ -58,7 +58,7 @@ app.post("/api/UnconfirmedExperts", async (req, resp) => {
 })
 
 // To modify unconfirmed experts to db
-app.put("/api/UnconfirmedExperts/:id", async (req, resp) => {
+app.put("/api/UnconfirmedExperts", async (req, resp) => {
     const data = database.collection('UnconfirmedExperts')
     const result = await data.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: req.body})
     resp.send(result)
@@ -71,7 +71,7 @@ app.post("/api/Experts", async (req, resp) => {
     resp.send(result)
 })
 // To modify experts in db
-app.put("/api/Experts/:id", async (req, resp) => {
+app.put("/api/Experts", async (req, resp) => {
     const data = database.collection('Experts')
     const result = await data.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: req.body})
     resp.send(result)
