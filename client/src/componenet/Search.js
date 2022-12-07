@@ -1,66 +1,23 @@
-
 import React from 'react';
 import './Search.module.css';
 import classes from './Search.module.css'
 
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 
 function Search({ details }) {
-  const show_user = (selected_user)=> {
+  let navigate = useNavigate();
 
-    //alert(JSON.stringify(selected_user, null, 4));
-      
-    // New Tab Window
-    var myWindow = window.open("", "_blank");
-  
-    // Popup Window
-    //var myWindow = window.open('/', 'example', "weight=100,height=100");
-  
-    // Basic Information
-    myWindow.document.write("Name: " + selected_user.first_name + " " + selected_user.last_name);
-    myWindow.document.write("<br>Email: " + selected_user.email);
-  
-    if (selected_user.categories_of_difference !== "") {
-      myWindow.document.write("<br>Categoties of Difference: " + selected_user.categories_of_difference);
-    }
-  
-    if (selected_user.categories_of_difference !== "") {
-      myWindow.document.write("<br>Geographic Areas: " + selected_user.geographic_areas);
-    }
-  
-    if (selected_user.discipline !== "") {
-    myWindow.document.write("<br>Discipline: " + selected_user.discipline + '<br>');
-    }
-  
-    // Location Specifications
-    if (selected_user.city !== "") {
-       myWindow.document.write("<br>City: " + selected_user.city);
-    } if (selected_user.state !== "") {
-      myWindow.document.write("<br>State: " + selected_user.state);
-    } if (selected_user.country !== "") {
-      myWindow.document.write("<br>Country: " + selected_user.country);
-    }
-  
-    // Expert Bio
-    if (selected_user.biographical_sketch !== "") {
-      myWindow.document.write("<br><br>Biographical Sketch: " + selected_user.biographical_sketch);
-    }
-    if (selected_user.twitter_intagram_other_social_media !== "") {
-      myWindow.document.write("<br>Social Media: " + selected_user.twitter_intagram_other_social_media);
-    } if (selected_user.media_availability !== "") {
-      myWindow.document.write("<br>Media Availability: " + selected_user.media_availability);
-    }
-  
-    if (selected_user.title !== "") {
-      myWindow.document.write("<br>Title: " + selected_user.title);
-    }
-    if (selected_user.institutional_affiliation !== "") {
-      myWindow.document.write("<br>Institutional Affiliation: " + selected_user.institutional_affiliation);
-    }
-  
+  const show_user = (selected_user)=> {
+    const id = selected_user._id
+    
+    let path = "../expertpage/" + id; 
+    navigate(path);
+
+   
   };
 
 const columns = [
@@ -117,6 +74,7 @@ const columns = [
     renderCell: (params)=>{
       return (
       <Button
+      sx ={{bgcolor: "green", }}
         onClick={(e) => show_user(params.row)}
         variant="contained"
       >
