@@ -45,6 +45,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
       onButtonClickUnconfirmedDelete(event,userObject)
      
       onButtonClickUnconfirmedAdd(event, userObject)
+      alert("Expert Moved")
     }
       
     
@@ -76,6 +77,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
     // need delete request
     // row is the object of the user 
     const onButtonClickUnconfirmedDelete = (event, userObject)=>{
+      alert("Denied!")
       const requestOptions = { 
         method:'DELETE'
       }; 
