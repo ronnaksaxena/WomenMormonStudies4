@@ -3,13 +3,14 @@ import React, {useEffect, useState, Fragment} from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  useParams
 } from "react-router-dom";
 import MainNavigation from "./componenet/MainNav.js";
 import Search from "./componenet/Search.js";
 import Home from "./pages/Home";
 import Register from "./pages/Register.js";
-import Vision from "./pages/Vision.js";
+import Signin from "./pages/Signin.js";
 import Admin from "./pages/Admin.js";
 import Expert from "./pages/RegisterExpertDetail";
 import User from "./pages/RegisterUserDetail";
@@ -19,6 +20,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import Box from '@mui/material/Box';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonSharpIcon from '@mui/icons-material/PersonSharp';
+import ExpertPage from "./pages/ExpertPage.js";
 
 
 function App() {
@@ -125,11 +127,13 @@ function App() {
             <Route exact path='/search' element={<Search details={backend}/>}/>
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
-            <Route exact path='/signin' element={<Vision/>}/>
+            <Route exact path='/signin' element={<Signin/>}/>
             <Route exact path='/admin/newell/742000/12252000' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
             <Route exact path='/expertedit' element={<ExpEdit/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
+            <Route exact path='/expertpage/:id' element={<ExpertPage/>}/>
+
           
           </Routes>
         </Fragment>
