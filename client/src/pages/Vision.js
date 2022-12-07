@@ -49,6 +49,7 @@ export default function Vision() {
       navigate(path);
     }
   }
+  
   const handleForgotPassword= (e) =>{
  
     const requestOptions = { 

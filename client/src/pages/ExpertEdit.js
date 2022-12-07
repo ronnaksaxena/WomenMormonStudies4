@@ -458,7 +458,7 @@ function ExpertEdit() {
   }
 
 
-  const updateExpert = (event, userObject)=>{
+  const updateExpert = (event, userObject, user_id)=>{
     const requestOptions = { 
         method:'PUT',
         body: JSON.stringify(myJSON),
@@ -467,7 +467,7 @@ function ExpertEdit() {
         }
       }; 
 
-      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/638f44cd721f19fb31b39a5d", requestOptions)
+      fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/" + user_id, requestOptions)
       .then((response)=> {
         alert("Expert Updated")
       return response.json();
@@ -477,19 +477,58 @@ function ExpertEdit() {
     }
 
 
+
+  const lookThrough= (e, event) =>{
+ 
+    const requestOptions = { 
+      method:'GET',
+      
+    }; 
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/Experts/", requestOptions)
+    .then((response)=> {
+      return response.json();
+    }).then((result) => {
+      console.log(result)
+
+      var email = e.email;
+      var password = e.password;
+
+      var found_email = false;
+      var found_pass = false;
+
+      Object.keys(result).forEach(function(key) {
+        if (result[key].email == email)
+        {
+          found_email = true;
+        }
+        if(result[key].password == password)
+        {
+          found_pass = true;
+        }
+      
+        if(found_pass == true){
+          if(found_email == true){
+            var user_id = result[key]._id
+            updateExpert(event, myJSON, user_id)
+            found_pass = false
+            found_email = false
+          }
+        }
+      })
+
+    })
+  }
+
+
+
+
+
   const change = (event)=>{
 
+      lookThrough(myJSON, event);
 
-      //handleSubmit(event);
+      //updateExpert(event, myJSON);
 
-      //myJSON.first_name = "ee";
-
-      updateExpert(event, myJSON);
-
-      //onButtonClickUnconfirmedAdd(event, myJSON);
-
-      //myJSON._id = "638f44cd721f19fb31b39a5d";
-      //DeleteExpert(event, myJSON);
 
     }
 
@@ -641,7 +680,7 @@ function ExpertEdit() {
     "city": city, "country": country, "date_recorded": "11/28/22", "date_updated": "11/28/22", "degree": degree, "discipline": discipline, "email": email, "first_name": firstName,
     "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": keywords, "last_accessed": "11/28/22", "last_name": lastName, "last_update_user": "",
     "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
-    "twitter_instagram_other_social_media": socialMedia, "website": website}
+    "twitter_instagram_other_social_media": socialMedia, "website": website, "password":password}
     console.log(myJSON)
 
   return (
@@ -890,7 +929,7 @@ function ExpertEdit() {
       <Button
               onClick={change}
 
-              type="submit"
+              //type="submit"
               
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '45%'}}
