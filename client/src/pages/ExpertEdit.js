@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import WebImage from '../componenet/WebImage';
 import CatagoryBox from '../componenet/CatagoryBox';
+import validator from 'validator'
 import CatagoryBox2 from '../componenet/CategoryBox2';
 import CatagoryBox3 from '../componenet/CategoryBox3';
 import { useNavigate } from "react-router-dom";
@@ -23,14 +24,72 @@ import {
 } from "react-router-dom";
 import  {Fragment} from "react";
 import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { Theme, useTheme } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
+import classes from './RegisterExpertDetail.module.css'
+import emailjs from '@emailjs/browser'
 
 
-const theme = createTheme({palette:
-    {
-        primary:{main:"#008000"},
-        // secondary:{main:"yellow"}
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
     },
-});
+  },
+};
+
+const categories_of_differences = [
+  'I am a person of color',
+  'I am LGBTQ+',
+  'I am a person with a disability',
+  'I am a neurodiverse person',
+  'I am a military veteran',
+  'I am a first-generation college student/graduate',
+  'Other (please specify)',
+];
+
+function getStyles(category, personCategory, theme) {
+  return {
+    fontWeight:
+      personCategory.indexOf(category) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles2(location, personLocation, theme) {
+  return {
+    fontWeight:
+      personLocation.indexOf(location) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles3(time, personTimePeriod, theme) {
+  return {
+    fontWeight:
+      personTimePeriod.indexOf(time) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+function getStyles4(time, personTimePeriod, theme) {
+  return {
+    fontWeight:
+      personTimePeriod.indexOf(time) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 
 const locations = [
@@ -97,6 +156,60 @@ const medias = [
     label: 'No',
   },
  
+];
+const degrees = [
+  {
+    value: 'No advanced degree related to Mormon Studies',
+    label: 'No advanced degree related to Mormon Studies',
+  },
+  {
+    value: 'BA',
+    label: 'BA',
+  },
+  {
+    value: 'BS',
+    label: 'BS',
+  },
+  {
+    value: 'MA',
+    label: 'MA',
+  },
+  {
+    value: 'MTS',
+    label: 'MTS',
+  },
+  {
+    value: 'MDiv',
+    label: 'MDiv',
+  },
+  {
+    value: 'MEd',
+    label: 'MEd',
+  },
+  {
+    value: 'MSW',
+    label: 'MSW',
+  },
+  {
+    value: 'JD',
+    label: 'JD',
+  },
+  {
+    value: 'ABD',
+    label: 'ABD',
+  },
+  {
+    value: 'PhD',
+    label: 'PhD',
+  },
+  {
+    value: 'ThD',
+    label: 'ThD',
+  },
+  {
+    value: 'EdD',
+    label: 'EdD',
+  },
 ];
 
 const methods = [
@@ -519,24 +632,21 @@ function ExpertEdit() {
     })
   }
 
-
-
-
-
   const change = (event)=>{
 
       lookThrough(myJSON, event);
 
       //updateExpert(event, myJSON);
-
-
     }
+
+
+
 
 
     const [firstName, setFirstName] = React.useState();
 
     const handleFirstNameChange = (event) => {
-      setFirstName(event.target.value);
+        setFirstName(event.target.value);
     };
 
     const [middleName, setMiddleName] = React.useState();
@@ -557,12 +667,6 @@ function ExpertEdit() {
       setEmail(event.target.value);
     };
 
-    const [password, setPassword] = React.useState();
-
-    const handlePasswordChange = (event) => {
-      setPassword(event.target.value);
-    };
-
     const [title, setTitle] = React.useState();
 
     const handleTitleChange = (event) => {
@@ -579,12 +683,6 @@ function ExpertEdit() {
 
     const handleCityChange = (event) => {
       setCity(event.target.value);
-    };
-
-    const [state, setState] = React.useState();
-
-    const handleStateChange = (event) => {
-      setState(event.target.value);
     };
 
     const [country, setCountry] = React.useState();
@@ -605,12 +703,6 @@ function ExpertEdit() {
       setWebsite(event.target.value);
     };
 
-    const [bibliography, setBibliography] = React.useState();
-
-    const handleBibliographyChange = (event) => {
-      setBibliography(event.target.value);
-    };
-
     const [degree, setDegree] = React.useState();
 
     const handleDegreeChange = (event) => {
@@ -619,20 +711,18 @@ function ExpertEdit() {
 
     const [categoriesOfDifference, setCategoriesOfDifference] = React.useState();
 
+    const theme = useTheme();
+    const [personCategory, setPersonName] = React.useState([]);
+  
     const handleCategoriesOfDifferenceChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setCategoriesOfDifference(event.target.value);
-    };
-
-    const [broadAreas, setBroadAreas] = React.useState();
-
-    const handleBroadAreasChange = (event) => {
-      setBroadAreas(event.target.value);
-    };
-
-    const [keywords, setKeywords] = React.useState();
-
-    const handleKeywordsChange = (event) => {
-      setKeywords(event.target.value);
     };
 
     const [biography, setBiography] = React.useState();
@@ -641,32 +731,62 @@ function ExpertEdit() {
       setBiography(event.target.value);
     };
 
-
     const [location, setLocation] = React.useState();
-
+    const [personLocation, setPersonLocation] = React.useState([]);
+  
     const handleLocationChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonLocation(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setLocation(event.target.value);
-    };
+    }; 
 
     const [method, setMethod] = React.useState();
+    const [personMethod, setPersonMethod] = React.useState([]);
+
     const handleMethodChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonMethod(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setMethod(event.target.value);
-    };
+        };
 
     const [discipline, setDiscipline] = React.useState();
-    const handleDisciplineChange = (event) => {
-      setDiscipline(event.target.value);
-    };
+
 
     const [topic, setTopic] = React.useState();
+    const [personTopic, setPersonTopic] = React.useState([]);
 
     const handleTopicChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonTopic(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setTopic(event.target.value);
     };
 
     const [period, setPeriod] = React.useState();
+    const [personTimePeriod, setPersonTimePeriod] = React.useState([]);
 
     const handlePeriodChange = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonTimePeriod(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
       setPeriod(event.target.value);
     };
 
@@ -676,178 +796,293 @@ function ExpertEdit() {
       setMedia(event.target.value);
     };
 
-    var myJSON = {"approved": "No", "bibliography": bibliography, "biographical_sketch": biography, "broad_areas": broadAreas, "categories_of_difference": categoriesOfDifference,
-    "city": city, "country": country, "date_recorded": "11/28/22", "date_updated": "11/28/22", "degree": degree, "discipline": discipline, "email": email, "first_name": firstName,
-    "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": keywords, "last_accessed": "11/28/22", "last_name": lastName, "last_update_user": "",
+    const [errorMessage, setErrorMessage] = useState('')
+ 
+    const validate = (value) => {
+      if (validator.isStrongPassword(value, {
+        minLength: 8, minLowercase: 1,
+        minUppercase: 1, minNumbers: 1, minSymbols: 1
+      })) {
+        setErrorMessage('This is a strong password')
+      } else {
+        setErrorMessage('This is not a strong password')
+      }
+    }
+
+    const [state, setState] = React.useState();
+
+    const handleStateChange = (event) => {
+      setState(event.target.value);
+    };
+
+    const [password, setPassword] = React.useState();
+    const handlePasswordChange = (event) => {
+      console.log(password)
+      setPassword(event.target.value);
+      validate(event.target.value)
+    };
+
+
+
+
+
+    var myJSON = {"approved": "No", "first_name": firstName,"bibliography": "N/A", "biographical_sketch": biography, "broad_areas": 'N/A', "categories_of_difference": categoriesOfDifference,
+    "city": city, "country": country, "date_recorded": "N/A", "date_updated": "N/A", "degree": degree, "discipline": "N/A", "email": email, 
+    "geographic_areas": location, "id": "N/A", "institutional_affiliation": institution, "keywords": "N/A", "last_accessed": "N/A", "last_name": lastName, "last_update_user": "",
     "media_availability": media, "methods_approaches": method, "middle_name_middle_initial": middleName, "state": state, "time_period": period, "title": title, 
-    "twitter_instagram_other_social_media": socialMedia, "website": website, "password":password}
+    "twitter_instagram_other_social_media": socialMedia, "website": website, "password": password}
     console.log(myJSON)
 
-  return (
+    return (
     <ThemeProvider theme={theme}>
 
      
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5" sx={{
+          marginTop: '10px', marginLeft: '38%'
+        }}>
           <WebImage alt="a decorative tree"/>
           </Typography>
          
-          <Box
+    <Box
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
-      noValidate
-      autoComplete="off"
     >
 
-    <div>
-        
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="First Name"
-          onChange={handleFirstNameChange}
-          value = {firstName}
-        />
+    <div className={classes.text}>
 
         <TextField
           required
           id="outlined-required"
-          label="Required"
-          defaultValue="Middle Name"
-          onChange={handleMiddleNameChange}
-          value = {middleName}
-        />
-
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Last Name"
-          onChange={handleLastNameChange}
-          value = {lastName}
-        />
-
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Email"
           onChange={handleEmailChange}
           value = {email}
+          helperText="Enter Email *REQUIRED*"
         />
 
         <TextField
           required
           id="outlined-required"
-          label="Required"
-          defaultValue="Password"
           onChange={handlePasswordChange}
           value = {password}
+          helperText="Enter Password *REQUIRED*"
         />
-
       </div>
 
-      <div>
-        
-        <TextField
-          defaultValue="Title"
+    <div className={classes.text}>
+    <TextField 
+          required
+          id="outlined-required"
           onChange={handleTitleChange}
           value = {title}
+          helperText="Edit Title"
+        />
+        <TextField
+          required
+          id="outlined-required"
+          onChange={handleFirstNameChange}
+          value = {firstName}
+          helperText="Edit First Name"
         />
 
         <TextField
-          defaultValue="Institutional Affifilation"
+          required
+          id="outlined-required"
+          onChange={handleMiddleNameChange}
+          value = {middleName}
+          helperText="Edit Middle Name"
+        />
+
+        <TextField
+          required
+          id="outlined-required"
+          onChange={handleLastNameChange}
+          value = {lastName}
+          helperText="Edit Family Name/Surname"
+        />
+        </div>
+
+      <div className={classes.text}>
+        
+        <TextField
+          required
+          id="outlined-required"
           onChange={handleInstitutionChange}
           value = {institution}
+          helperText="Edit Institutional Affiliation"
         />
+
         <TextField
-          defaultValue="City"
+          required
+          id="outlined-required"
           onChange={handleCityChange}
           value = {city}
+          helperText="Edit City"
         />
+
         <TextField
-          defaultValue="State"
+          required
+          id="outlined-required"
           onChange={handleStateChange}
           value = {state}
+          helperText="Edit State/Province"
         />
          <TextField
-          defaultValue="Country"
           onChange={handleCountryChange}
           value = {country}
+          required
+          id="outlined-required"
+          helperText="Edit Country"
         />
       </div>
 
-      <div>
+      <div className={classes.text}>
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Edit Desired Locations</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personLocation}
+            onChange={handleLocationChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {locations.map((location) => (
+              <MenuItem
+                key={location}
+                value={location}
+                style={getStyles2(location, personLocation, theme)}
+              >
+                {location}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Edit Time Period</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personTimePeriod}
+            onChange={handlePeriodChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {periods.map((time) => (
+              <MenuItem
+                key={time}
+                value={time}
+                style={getStyles3(time, personTimePeriod, theme)}
+              >
+                {time}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Edit Method/Discipline</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personMethod}
+            onChange={handleMethodChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {methods.map((method) => (
+              <MenuItem
+                key={method}
+                value={method}
+                style={getStyles4(method, personMethod, theme)}
+              >
+                {method}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Edit Topic</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personTopic}
+            onChange={handleTopicChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {topics.map((topic) => (
+              <MenuItem
+                key={topic}
+                value={topic}
+                style={getStyles4(topic, personTopic, theme)}
+              >
+                {topic}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+  
+      </div>
+
+      <div className={classes.text}>
+        
+        <TextField
+          onChange={handleSocialMediaChange}
+          value = {socialMedia}
+          required
+          id="outlined-required"
+          helperText="Edit Social Media Handles"
+        />
+
+        <TextField
+        onChange={handleWebsiteChange}
+        value = {website}
+        required
+        id="outlined-required"
+        helperText="Edit Website URL"
+        />
 
         <TextField
           id="outlined-select-location"
           select
-          label="Select"
-          value={location}
-          onChange={handleLocationChange}
-          helperText="Please select your location"
-        >
-          {locations.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select"
-          value={discipline}
-          onChange={handleMethodChange}
-          helperText="Please select your method/discipline"
-        >
-          {methods.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select"
-          value={period}
-          onChange={handlePeriodChange}
-          helperText="Please select your time period"
-        >
-          {periods.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select"
-          value={topic}
-          onChange={handleTopicChange}
-          helperText="Please select your topic"
-        >
-          {topics.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-location"
-          select
-          label="Select"
           value={media}
           onChange={handleMediaChange}
-          helperText="Please select your media avaliability"
+          helperText="Edit Media Avaliability"
         >
           {medias.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -855,84 +1090,72 @@ function ExpertEdit() {
             </MenuItem>
           ))}
         </TextField>
-  
-      </div>
-
-      <div>
-        
-        <TextField
-          defaultValue="Social Media"
-          onChange={handleSocialMediaChange}
-          value = {socialMedia}
-        />
 
         <TextField
-        onChange={handleWebsiteChange}
-        value = {website}
-        />
-
-        <TextField
-          defaultValue="Bibliography"
-          onChange={handleBibliographyChange}
-          value = {bibliography}
-        />
-
-        <TextField
-          defaultValue="Degree"
+          id="outlined-select-location"
+          select
+          value={discipline}
+          required
           onChange={handleDegreeChange}
-          value = {degree}
-        />
+          helperText="Edit highest degree related to your work in Mormon Studies"
+        >
+          {degrees.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <TextField
-          defaultValue="Categories of Difference"
-          onChange={handleCategoriesOfDifferenceChange}
-          value = {categoriesOfDifference}
-        />
+        <FormControl sx={{ m: 1, width: 250 }}>
+          <InputLabel id="demo-multiple-chip-label">Select Categories of Difference</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personCategory}
+            onChange={handleCategoriesOfDifferenceChange}
+            input={<OutlinedInput id="select-multiple-chip" label= "Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {categories_of_differences.map((category) => (
+              <MenuItem
+                key={category}
+                value={category}
+                style={getStyles(category, personCategory, theme)}
+              >
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
       </div>
 
-      <div>
-        
-        <TextField
-          defaultValue="Broad Areas"
-          onChange={handleBroadAreasChange}
-          value = {broadAreas}
-        />
-
-          <TextField
-          defaultValue="Discipline"
-          onChange={handleDisciplineChange}
-          value = {discipline}
-        />
-
-        <TextField
-          defaultValue="Keywords"
-          onChange={handleKeywordsChange}
-          value = {keywords}
-        />
-      </div>
-
-      
-      
-      <div>
+ 
+      <div className={classes.text2}>
       <TextField
           id="outlined-multiline-static"
-          label="Biography"
           multiline
-          rows={10}
-          defaultValue="Your Biography Here"
+          rows={5}
           onChange={handleBiographyChange}
           value = {biography}
+          required
+          helperText="Edit Biography. Include citations of relevant scholarly work, description of your research interests and current projects, and so on."
         />
       </div>
-
 
       <Button
               onClick={change}
-
-              //type="submit"
-              
+              //type="Apply Changes"
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '45%'}}
+              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%'}}
             >
               Apply Changes
             </Button>
