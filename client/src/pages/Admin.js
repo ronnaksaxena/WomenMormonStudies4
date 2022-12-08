@@ -27,6 +27,67 @@ export default function Admin({details, detailsOfUnconfirmed}){
       navigate(path);
     };
 
+
+    const see_unconfirmed =(selected)=>{
+  
+
+    
+
+        //alert(JSON.stringify(selected, null, 4));
+          
+        // New Tab Window
+        var myWindow = window.open("", "_blank");
+    
+        // Popup Window
+        //var myWindow = window.open('/', 'example', "weight=100,height=100");
+    
+        // Basic Information
+        myWindow.document.write("Name: " + selected.first_name + " " + selected.last_name);
+        myWindow.document.write("<br>Email: " + selected.email);
+    
+        if (selected.categories_of_difference != "") {
+          myWindow.document.write("<br>Categoties of Difference: " + selected.categories_of_difference);
+        }
+    
+        if (selected.categories_of_difference != "") {
+          myWindow.document.write("<br>Geographic Areas: " + selected.geographic_areas);
+        }
+    
+        if (selected.discipline != "") {
+        myWindow.document.write("<br>Discipline: " + selected.discipline + '<br>');
+        }
+    
+        // Location Specifications
+        if (selected.city != "") {
+           myWindow.document.write("<br>City: " + selected.city);
+        } if (selected.state != "") {
+          myWindow.document.write("<br>State: " + selected.state);
+        } if (selected.country != "") {
+          myWindow.document.write("<br>Country: " + selected.country);
+        }
+    
+        // Expert Bio
+        if (selected.biographical_sketch != "") {
+          myWindow.document.write("<br><br>Biographical Sketch: " + selected.biographical_sketch);
+        }
+        if (selected.twitter_intagram_other_social_media != "") {
+          myWindow.document.write("<br>Social Media: " + selected.twitter_intagram_other_social_media);
+        } if (selected.media_availability != "") {
+          myWindow.document.write("<br>Media Availability: " + selected.media_availability);
+        }
+    
+        if (selected.title != "") {
+          myWindow.document.write("<br>Title: " + selected.title);
+        }
+        if (selected.institutional_affiliation != "") {
+          myWindow.document.write("<br>Institutional Affiliation: " + selected.institutional_affiliation);
+        }
+    
+        
+      
+      };
+    
+
       
   const onButtonClickDeleteExpert = (event, userObject)=>{
     const requestOptions = { 
@@ -201,7 +262,7 @@ export default function Admin({details, detailsOfUnconfirmed}){
           renderCell: (params)=>{
             return (
             <Button
-            onClick={(e) => show_user(params.row)}
+            onClick={(e) => see_unconfirmed(params.row)}
             variant="contained"
             >
               View

@@ -96,7 +96,7 @@ export default function Signin() {
         
       })
       if (!found){
-        alert("Couldn't find your email. Fix the typo or register as an expert!")
+        alert("Couldn't find your email. Input your email, fix the typo, or register as an expert!")
       }
       else
       {

@@ -1155,7 +1155,7 @@ function ExpertEdit() {
               onClick={change}
               //type="Apply Changes"
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%'}}
+              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%', color: "green"}}
             >
               Apply Changes
             </Button>
