@@ -19,7 +19,6 @@ export default function Home(){
  
             <div className={classes.parent}>
                 <h1 id="home_page"></h1>
-                
                 <div className={classes.child}>
                     <WebImage alt="a decorative tree"/>
                 </div>
@@ -38,6 +37,11 @@ export default function Home(){
                  onClick={routeChange}
                 > 
                 FIND AN EXPERT! </Button>
+
+                <p className = {classes.text2}> 
+                Visitors are encouraged to register as Experts or Users. Registering as an Expert will allow a user to have their information displayed in the "Find an Expert" section. 
+                Users will be able to save their preferred searches and will be notified whenever an Expert that matches their preferences registers. 
+                </p>
                 
                 </Stack>
 

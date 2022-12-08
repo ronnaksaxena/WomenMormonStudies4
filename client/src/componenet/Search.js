@@ -67,19 +67,12 @@ const columns = [
   {
     field: 'first_name',
     headerName: 'First name',
-    width: 150,
+    width: 210,
     editable: true,
   },
   {
     field: 'last_name',
     headerName: 'Last name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'city',
-    headerName: 'City',
-    type: 'City',
     width: 210,
     editable: true,
   },
@@ -108,7 +101,7 @@ const columns = [
     field: 'discipline',
     headerName: 'Discipline',
     type: 'Discipline',
-    width: 150,
+    width: 210,
     editable: true,
   },
   {
@@ -127,14 +120,14 @@ const columns = [
   
 ];
 
-
-  return (
-    
+  return (    
       <section className="garamond">
 
 
       <h1 className={classes.text3}> Search For An Expert!</h1>
-
+      <p className = {classes.text4}> 
+      Hover over a header and then click on the three dots that appear. Options to sort or filter will appear. Feel free to apply filters to as many fields!
+    </p>
      
       <div style={{ height: 650, width: '100%',  }}>
           <div style={{ height: 500, width: '95%', float:'left', display:'inline', marginLeft:'40px'  }}>
