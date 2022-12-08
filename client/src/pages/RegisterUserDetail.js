@@ -193,7 +193,7 @@ export default function RegisterUserDetail() {
     .then((response)=> {
       return response.json();
     }).then((result) => {
-      //console.log(result);
+      console.log(result);
     })
   };
 
@@ -238,7 +238,7 @@ export default function RegisterUserDetail() {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    validate(event.target.value);
+    validate(event.target.value)
   };
 
   const handleChange2 = (event) => {
@@ -367,8 +367,7 @@ export default function RegisterUserDetail() {
             fontWeight: 'bold',
             color: 'red',
           }}>{errorMessage}</span>}
-                
-          //OnChange={(e) => validate(e.target.value)}
+          // onChange={(e) => validate(e.target.value)}
         />
       </div>
 

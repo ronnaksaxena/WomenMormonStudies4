@@ -34,6 +34,16 @@ app.get('/api/UnconfirmedExperts', (req, resp) => {
     })
 })
 
+// To access users that want to register
+app.get('/api/Users', (req, resp) => {
+    database.collection('Users').find({}).toArray((err, result) => {
+        if (err) throw err
+        console.log("sending this to get")
+        console.log(resp)
+        resp.send(result)
+    })
+})
+
 // To delete experts that aren't registered yet
 app.delete("/api/UnconfirmedExperts/:id", async (req, resp) => {
     console.log(req.params.id)
@@ -50,6 +60,14 @@ app.delete("/api/Experts/:id", async (req, resp) => {
     resp.send(result)
 })
 
+// To delete users
+app.delete("/api/Experts/:id", async (req, resp) => {
+    console.log(req.params.id)
+    const data = database.collection('Users')
+    const result = await data.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
+    resp.send(result)
+})
+
 // To add unconfirmed experts to db
 app.post("/api/UnconfirmedExperts", async (req, resp) => {
     const data = database.collection('UnconfirmedExperts')
@@ -58,7 +76,7 @@ app.post("/api/UnconfirmedExperts", async (req, resp) => {
 })
 
 // To modify unconfirmed experts to db
-app.put("/api/UnconfirmedExperts/:id", async (req, resp) => {
+app.put("/api/UnconfirmedExperts", async (req, resp) => {
     const data = database.collection('UnconfirmedExperts')
     const result = await data.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: req.body})
     resp.send(result)
@@ -71,8 +89,21 @@ app.post("/api/Experts", async (req, resp) => {
     resp.send(result)
 })
 // To modify experts in db
-app.put("/api/Experts/:id", async (req, resp) => {
+app.put("/api/Experts", async (req, resp) => {
     const data = database.collection('Experts')
+    const result = await data.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: req.body})
+    resp.send(result)
+})
+
+// To add users to db
+app.post("/api/Users", async (req, resp) => {
+    const data = database.collection('Users')
+    const result = await data.insert(req.body)
+    resp.send(result)
+})
+// To modify users in db
+app.put("/api/Users/:id", async (req, resp) => {
+    const data = database.collection('Users')
     const result = await data.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: req.body})
     resp.send(result)
 })
