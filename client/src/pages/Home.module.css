@@ -55,6 +55,13 @@
     margin-top: 10%;
     font-size: 15;
   }
+  .text2 {
+    display: inline-block;
+    color: black;
+    width: 100%;
+    margin-top: 10%;
+    font-size: 15;
+  }
 
   .parent {
     margin: 1rem;

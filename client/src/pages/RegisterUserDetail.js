@@ -325,7 +325,9 @@ export default function RegisterUserDetail() {
     >
           <div className = {classes.text}>
 
-          
+        <p className = {classes.text3}> 
+        In order to register, please fill in the fields below. Feel free to enter N/A if a field doesn't apply. You will be able to sign-in after. 
+        </p>
         <TextField
        
           required
@@ -365,7 +367,6 @@ export default function RegisterUserDetail() {
             fontWeight: 'bold',
             color: 'red',
           }}>{errorMessage}</span>}
-                
           // onChange={(e) => validate(e.target.value)}
         />
       </div>

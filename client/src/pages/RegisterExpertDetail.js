@@ -475,6 +475,15 @@ const topics = [
       }}
     >
 
+    <p className = {classes.text3}> 
+    In order to register, please fill in the fields below. Feel free to enter N/A if a field doesn't apply. Once you hit register, a notification will be sent
+    to Professor Newell that you are looking for approval. You will be able to sign-in once approved. 
+    </p>
+
+    <p className = {classes.text4}> 
+    Notice: Clicking register will keep your information on the page but you will have registered. Don't hit register multiple times!
+    </p>
+
     <div className={classes.text}>
     <TextField 
           required
@@ -520,6 +529,7 @@ const topics = [
         <TextField
           required
           id="outlined-required"
+          label = "Password"
           onChange={handlePasswordChange}
           value = {password}
           helperText= {errorMessage === '' ? null :
@@ -528,7 +538,7 @@ const topics = [
             color: 'red',
           }}>{errorMessage}</span>}
                 
-          // onChange={(e) => validate(e.target.value)}
+          //onChange={(e) => validate(e.target.value)}
         />
       </div>
 
@@ -787,7 +797,7 @@ const topics = [
 
       <Button
               onClick={handleSubmit}
-              //type="submit"
+              type="submit"
               variant="contained"
               sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%'}}
             >
