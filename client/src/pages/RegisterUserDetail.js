@@ -189,7 +189,7 @@ export default function RegisterUserDetail() {
         'Content-Type': 'application/json'
     },
     }; 
-    fetch("https://womenmormonstudies-server.herokuapp.com/api/User/", requestOptions)
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/Users/", requestOptions)
     .then((response)=> {
       return response.json();
     }).then((result) => {
@@ -303,8 +303,14 @@ export default function RegisterUserDetail() {
       setTopic(event.target.value);
     };
 
+    const [biography, setBiography] = React.useState();
 
-  var myJSON = {"email": email, "first_name": firstName,"last_name": lastName, "password": password}
+    const handleBiographyChange = (event) => {
+      setBiography(event.target.value);
+    };
+
+
+  var myJSON = {"email": email, "first_name": firstName,"last_name": lastName, "password": password, "searches": {"location": location, "time": period, "method": method, "topic": topic, "extra": biography}}
   console.log(myJSON)
 
 
@@ -493,6 +499,16 @@ export default function RegisterUserDetail() {
             ))}
           </Select>
         </FormControl>
+
+        <TextField
+          id="outlined-multiline-static"
+          multiline
+          rows={5}
+          onChange={handleBiographyChange}
+          value = {biography}
+          required
+          helperText="Type in any additional topics that you are interested separated by commas in here"
+        />
   
       </div>
 

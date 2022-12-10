@@ -103,7 +103,46 @@ function App() {
     })
   }, [])
 
-  console.log(backendForUnconfirmed)
+  const [userbackend, setuserBackendData] = useState([{}])
+
+  useEffect (() => {
+    // Fetches the data as an array of bytes and converts to strea
+    fetch("https://womenmormonstudies-server.herokuapp.com/api/Users").then((response) => {
+      const body = response.body
+      const reader = body.getReader();
+      
+      return new ReadableStream({
+        start(controller) {
+          // The following function handles each data chunk
+          async function push() {
+            // "done" is a Boolean and value a "Uint8Array"
+            reader.read().then(({ done, value }) => {
+              // If there is no more data to read
+              if (done) {
+                controller.close();
+                return;
+              }
+              // Get the data and send it to the browser via the controller
+              controller.enqueue(value);
+              push();
+            });
+          }
+  
+          push();
+        },
+      })
+      
+    }).then((stream) => {
+      // Converts stream into string
+      return new Response(stream, { headers: { 'Content-Type': 'text/html' } }).text()
+    }).then((result) => {
+      // Parses string and conversts to data map object
+      const dataMap = JSON.parse(result);
+      setuserBackendData(dataMap)
+    })
+  }, [])
+
+  console.log(userbackend)
   return (
 
     <Box sx ={{height:1,width:1}}>
@@ -126,7 +165,7 @@ function App() {
             {/* <Route exact path='/login' element={<Login/>}/> */}
             <Route exact path='/register' element={<Register/>}/>
             <Route exact path='/signin' element={<Vision/>}/>
-            <Route exact path='/admin/newell/742000/12252000' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed}/>}/>
+            <Route exact path='/admin/newell/742000/12252000' element={<Admin details = {backend} detailsOfUnconfirmed = {backendForUnconfirmed} users = {userbackend}/>}/>
             <Route exact path='/registerexpertdetail' element={<Expert/>}/>
             <Route exact path='/expertedit' element={<ExpEdit/>}/>
             <Route exact path='/registeruserdetail' element={<User/>}/>
