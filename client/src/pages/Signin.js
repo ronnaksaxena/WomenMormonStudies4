@@ -9,9 +9,6 @@ import WebImage from '../componenet/WebImage';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
-
-
-
 const theme = createTheme({palette:
     {
         primary:{main:"#008000"},
@@ -49,9 +46,8 @@ export default function Signin() {
       let found = false;
 
       Object.keys(result).forEach(function(key) {
-        if (result[key].email == email && result[key].password == password)
-        found = true
-        {
+        if (result[key].email == email && result[key].password == password){
+          found = true
           if (result[key].email == "qnewell@hamilton.edu"){
             let path = "../admin/newell/742000/12252000"; 
             navigate(path);
@@ -59,11 +55,9 @@ export default function Signin() {
           else{
           let id = result[key]._id
           show_user(id)
-          }
-        }
+        }}
       })
       if (!found){
-        navigate("../signin")
         alert("Email and password not found, try again")
       }
     })

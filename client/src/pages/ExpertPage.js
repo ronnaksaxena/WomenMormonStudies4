@@ -56,7 +56,9 @@ export default function ExpertPage(){
                     <ListItem> {myJSON.city} {myJSON.satte} {myJSON.country}</ListItem>
 
                     {(myJSON.website)? (
-                    <ListItem> <Button sx = {{outline_width: "1px", outline_color: "black"}} href = {myJSON.website.slice(1,-1)}> {myJSON.website.slice(1,-1)}</Button> </ListItem>
+                      
+                    // <ListItem> <Button sx = {{outline_width: "1px", outline_color: "black"}} href = {myJSON.website}> {myJSON.website}</Button> </ListItem>
+                    <ListItem>{myJSON.website}</ListItem>
 
                         ):
                         <p></p>
