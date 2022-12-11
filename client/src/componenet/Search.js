@@ -19,8 +19,12 @@ function Search({ details }) {
 
    
   };
+  for (let i=0;i<details.length;i++){
+    details[i]["id"]= i+1
+}
 
 const columns = [
+  
   {
     field: 'first_name',
     headerName: 'First name',
@@ -104,23 +108,7 @@ const columns = [
       )}
         </div>
         </div>
-      
- 
-      
-
-    
-    
-      
   </section>
-
-
-    
   );
 }
-
 export default Search;
-
-
-
-
-

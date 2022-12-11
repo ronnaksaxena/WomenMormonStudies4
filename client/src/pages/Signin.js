@@ -112,7 +112,6 @@ export default function Signin() {
             alignItems: 'center',
           }}
         >
-          
           <Typography component="h1" variant="h5">
           <WebImage alt="a decorative tree"/>
           </Typography>
