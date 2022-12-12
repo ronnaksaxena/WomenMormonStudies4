@@ -799,7 +799,7 @@ const topics = [
               onClick={handleSubmit}
               type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%'}}
+              sx={{ mt: 3, mb: 2 ,color: 'white', width: 200, marginLeft: '40%', bgcolor: "green"}}
             >
               Register
             </Button>
