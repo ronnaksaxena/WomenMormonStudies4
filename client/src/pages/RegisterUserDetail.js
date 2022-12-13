@@ -230,7 +230,7 @@ export default function RegisterUserDetail() {
     })) {
       setErrorMessage('This is a strong password')
     } else {
-      setErrorMessage('This is not a strong password')
+      setErrorMessage('This is not a strong password. Your password should be 8 characters long with a capital, number, and symbol.')
     }
   }
 
