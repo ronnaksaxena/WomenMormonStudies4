@@ -61,7 +61,7 @@ app.delete("/api/Experts/:id", async (req, resp) => {
 })
 
 // To delete users
-app.delete("/api/Experts/:id", async (req, resp) => {
+app.delete("/api/Users/:id", async (req, resp) => {
     console.log(req.params.id)
     const data = database.collection('Users')
     const result = await data.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
